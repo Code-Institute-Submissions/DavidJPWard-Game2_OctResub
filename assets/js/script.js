@@ -33,7 +33,13 @@ const TEAM_SELECTIONS = [
 
 ]
 
-teamSelectionButtons.forEach(selectionButtons)
+teamSelectionButtons.forEach(teamSelectionButtons => {
+    teamSelectionButtons.addEventListener('click', e => {
+        const selectedMonster = teamSelectionButtons.dataset.monster
+        const monster = TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)
+        console.log(monster)
+    })
+})
 
 
 selectionButtons.forEach(selectionButton => {
