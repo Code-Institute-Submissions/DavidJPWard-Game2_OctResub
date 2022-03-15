@@ -4,6 +4,7 @@ const computerScoreSpan = document.querySelector("[data-computer-score]")
 const yourScoreSpan = document.querySelector("[data-your-score]")
 const teamPopupButton = document.querySelector(".select-team")
 const teamPopup = document.querySelector(".team-select-popup")
+const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const SELECTIONS = [
     {
         name: "rock",
@@ -19,14 +20,28 @@ const SELECTIONS = [
     }
 ]
 
+const TEAM_SELECTIONS = [
+    {
+        name: "bruk"
+    },
+    {
+        name: "blinky"
+    },
+    {
+        name: "blady"
+    }
+
+]
+
+teamSelectionButtons.forEach(selectionButtons)
+
 
 selectionButtons.forEach(selectionButton => {
     selectionButton.addEventListener('click', e => {
         const selectionName = selectionButton.dataset.selection
         const selection = SELECTIONS.find(selection => selection.name === selectionName)
         makeSelection(selection)
-        console.log(teamPopupButton)
-        console.log("yes")
+
     })
 
 })
