@@ -2,6 +2,8 @@ const selectionButtons = document.querySelectorAll('[data-selection]')
 const finalColumn = document.querySelector('[data-final-column]')
 const computerScoreSpan = document.querySelector("[data-computer-score]")
 const yourScoreSpan = document.querySelector("[data-your-score]")
+const teamPopupButton = document.querySelector(".select-team")
+const teamPopup = document.querySelector(".team-select-popup")
 const SELECTIONS = [
     {
         name: "rock",
@@ -23,8 +25,23 @@ selectionButtons.forEach(selectionButton => {
         const selectionName = selectionButton.dataset.selection
         const selection = SELECTIONS.find(selection => selection.name === selectionName)
         makeSelection(selection)
+        console.log(teamPopupButton)
+        console.log("yes")
     })
+
 })
+
+teamPopupButton.addEventListener("click", e =>{
+        if(teamPopup.classList.contains("show")){ 
+            teamPopup.classList.remove("show")
+            console.log(teamPopup.classList);
+        } else { !teamPopup.classList.contains("show") 
+            teamPopup.classList.add("show");
+            console.log(teamPopup.classList)}
+        
+    });
+
+
 
 function makeSelection(selection){
     const computerSelection = randomSelection();
