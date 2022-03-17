@@ -52,11 +52,14 @@ teamSelectionButtons.forEach(teamSelectionButtons => {
         if(playerTeam.length < 6) {
         playerTeam.push(monster)
         console.log(playerTeam)
-
-        portraitDivs.forEach(portraitDivs =>{
+        
+        for(let i = 0; i < playerTeam.length; i++)
+        {
+            portraitDivs[i].style.color = "red";
             
-        })
+        }
 
+        console.log(portraitDivs)
         } else {
             console.log("team full")
         }
@@ -65,7 +68,12 @@ teamSelectionButtons.forEach(teamSelectionButtons => {
 
 removeButton.addEventListener("click", e => {
     if(playerTeam.length >= 1) {
+        let i = playerTeam.length - 1
+
+        portraitDivs[i].style.color = "black";
+
         playerTeam.pop()
+
         console.log(playerTeam)
     } else {
         console.log("Team empty")
