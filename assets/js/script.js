@@ -5,6 +5,12 @@ const yourScoreSpan = document.querySelector("[data-your-score]")
 const teamPopupButton = document.querySelector(".select-team")
 const teamPopup = document.querySelector(".team-select-popup")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
+const brukButton = document.querySelector("#bruk")
+const removeButton = document.querySelector("#remove")
+const portraitDivs = document.querySelectorAll(".team-roster-position")
+
+
+const playerTeam = [];
 const SELECTIONS = [
     {
         name: "rock",
@@ -33,13 +39,35 @@ const TEAM_SELECTIONS = [
 
 ]
 
+/*brukButton.addEventListener("click", e => {
+
+    playerTeam.push("bruk")
+    console.log(newMonster)
+})*/
+
 teamSelectionButtons.forEach(teamSelectionButtons => {
     teamSelectionButtons.addEventListener('click', e => {
         const selectedMonster = teamSelectionButtons.dataset.monster
         const monster = TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)
-        console.log(monster)
+        if(playerTeam.length < 6) {
+        playerTeam.push(monster)
+        console.log(playerTeam)
+        } else {
+            console.log("team full")
+        }
     })
 })
+
+removeButton.addEventListener("click", e => {
+    if(playerTeam.length >= 1) {
+        playerTeam.pop()
+        console.log(playerTeam)
+    } else {
+        console.log("Team empty")
+    }
+})
+
+
 
 
 selectionButtons.forEach(selectionButton => {
