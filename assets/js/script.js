@@ -52,6 +52,11 @@ teamSelectionButtons.forEach(teamSelectionButtons => {
         if(playerTeam.length < 6) {
         playerTeam.push(monster)
         console.log(playerTeam)
+
+        portraitDivs.forEach(portraitDivs =>{
+            
+        })
+
         } else {
             console.log("team full")
         }
