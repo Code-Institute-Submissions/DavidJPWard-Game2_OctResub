@@ -8,9 +8,11 @@ const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const brukButton = document.querySelector("#bruk")
 const removeButton = document.querySelector("#remove")
 const portraitDivs = document.querySelectorAll(".team-roster-position")
+const fightButton = document.querySelector("#start-fight")
 
 
 const playerTeam = [];
+const enemyTeam = [];
 const SELECTIONS = [
     {
         name: "rock",
@@ -74,7 +76,7 @@ removeButton.addEventListener("click", e => {
     if(playerTeam.length >= 1) {
         let i = playerTeam.length - 1
 
-        portraitDivs[i].style.backgroundColor = "aquamarine";
+        portraitDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png";
 
         playerTeam.pop()
 
@@ -84,7 +86,7 @@ removeButton.addEventListener("click", e => {
     }
 })
 
-
+fightButton.addEventListener('click', createEnemyTeam)
 
 
 selectionButtons.forEach(selectionButton => {
@@ -141,4 +143,12 @@ function isWinner(selection, opponentSelection){
 function randomSelection(){
     const randomInt = Math.floor(Math.random() * SELECTIONS.length);
     return SELECTIONS[randomInt]
+}
+
+function createEnemyTeam(){
+    for(let i = 0; i < playerTeam.length; i++){
+        const randInt = Math.floor(Math.random() * TEAM_SELECTIONS.length)
+        enemyTeam.push(TEAM_SELECTIONS[randInt])
+    }
+    console.log(enemyTeam)
 }
