@@ -1,5 +1,5 @@
 class Fight{
-    constructor(){
-        
+    constructor(player, enemy){
+
     }
 }

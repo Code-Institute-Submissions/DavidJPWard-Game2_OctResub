@@ -4,6 +4,7 @@ const computerScoreSpan = document.querySelector("[data-computer-score]")
 const yourScoreSpan = document.querySelector("[data-your-score]")
 const teamPopupButton = document.querySelector(".select-team")
 const teamPopup = document.querySelector(".team-select-popup")
+const battlePopup = document.querySelector(".battle-popup")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const brukButton = document.querySelector("#bruk")
 const removeButton = document.querySelector("#remove")
@@ -86,27 +87,18 @@ removeButton.addEventListener("click", e => {
     }
 })
 
-fightButton.addEventListener('click', createEnemyTeam)
-
-
-selectionButtons.forEach(selectionButton => {
-    selectionButton.addEventListener('click', e => {
-        const selectionName = selectionButton.dataset.selection
-        const selection = SELECTIONS.find(selection => selection.name === selectionName)
-        makeSelection(selection)
-
-    })
-
+fightButton.addEventListener('click', e => { 
+    createEnemyTeam
+    console.log(battlePopup)
+    showPopup(battlePopup)
 })
 
+
+
+
+
 teamPopupButton.addEventListener("click", e =>{
-        if(teamPopup.classList.contains("show")){ 
-            teamPopup.classList.remove("show")
-            console.log(teamPopup.classList);
-        } else { !teamPopup.classList.contains("show") 
-            teamPopup.classList.add("show");
-            console.log(teamPopup.classList)}
-        
+        showPopup(teamPopup)    
     });
 
 
@@ -140,15 +132,22 @@ function isWinner(selection, opponentSelection){
     return selection.beats === opponentSelection.name
 }
 
-function randomSelection(){
-    const randomInt = Math.floor(Math.random() * SELECTIONS.length);
-    return SELECTIONS[randomInt]
-}
+
 
 function createEnemyTeam(){
+    enemyTeam.length = 0
     for(let i = 0; i < playerTeam.length; i++){
         const randInt = Math.floor(Math.random() * TEAM_SELECTIONS.length)
         enemyTeam.push(TEAM_SELECTIONS[randInt])
     }
     console.log(enemyTeam)
+}
+
+function showPopup(element){
+    if(element.classList.contains("show")){ 
+        element.classList.remove("show")
+    } else { !element.classList.contains("show") 
+        element.classList.add("show");
+}
+
 }
