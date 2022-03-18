@@ -79,10 +79,9 @@ body{
 }
 
 .team-roster-position{
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     margin: 3px;
     border: 3px solid;
-    background-color: aquamarine;
-
+    background-image: url("/assets/images/empty-icon.png");
 }

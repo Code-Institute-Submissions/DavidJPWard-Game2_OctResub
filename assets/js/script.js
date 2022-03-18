@@ -28,10 +28,14 @@ const SELECTIONS = [
 
 const TEAM_SELECTIONS = [
     {
-        name: "bruk"
+        name: "bruk",
+        sprite: "/assets/images/bruk-sprite.png",
+        icon: "/assets/images/bruk-icon.png"
     },
     {
-        name: "blinky"
+        name: "blinky",
+        sprite: "/assets/images/blinky-sprite.png",
+        icon: "/assets/images/blinky-icon.png"
     },
     {
         name: "blady"
@@ -42,26 +46,26 @@ const TEAM_SELECTIONS = [
 /*brukButton.addEventListener("click", e => {
 
     playerTeam.push("bruk")
-    console.log(newMonster)
+    console.log(newMonster)...MonstersDeck["m001"].name
 })*/
 
 teamSelectionButtons.forEach(teamSelectionButtons => {
     teamSelectionButtons.addEventListener('click', e => {
         const selectedMonster = teamSelectionButtons.dataset.monster
         const monster = TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)
+        console.log(monster.sprite)
+
         if(playerTeam.length < 6) {
         playerTeam.push(monster)
         console.log(playerTeam)
         
         for(let i = 0; i < playerTeam.length; i++)
         {
-            portraitDivs[i].style.color = "red";
-            
+            portraitDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
         }
-
-        console.log(portraitDivs)
         } else {
-            console.log(...MonstersDeck["m001"])
+            
+            console.log("Team full")
         }
     })
 })
@@ -70,7 +74,7 @@ removeButton.addEventListener("click", e => {
     if(playerTeam.length >= 1) {
         let i = playerTeam.length - 1
 
-        portraitDivs[i].style.color = "black";
+        portraitDivs[i].style.backgroundColor = "aquamarine";
 
         playerTeam.pop()
 
