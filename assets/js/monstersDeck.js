@@ -1,4 +1,4 @@
-window.Monsters = {
+window.MonstersDeck = {
     "m001":{
         name: "Bruk",
         type: MonsterTypes.ground,

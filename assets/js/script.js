@@ -61,7 +61,7 @@ teamSelectionButtons.forEach(teamSelectionButtons => {
 
         console.log(portraitDivs)
         } else {
-            console.log("team full")
+            console.log(...MonstersDeck["m001"])
         }
     })
 })
