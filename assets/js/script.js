@@ -9,6 +9,7 @@ const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const brukButton = document.querySelector("#bruk")
 const removeButton = document.querySelector("#remove")
 const portraitDivs = document.querySelectorAll(".team-roster-position")
+const moveButtons = document.querySelectorAll(".move-button")
 const fightButton = document.querySelector("#start-fight")
 const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
 const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
@@ -16,6 +17,8 @@ const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
 
 const playerTeam = [];
 const enemyTeam = [];
+let newMonster = null;
+
 const SELECTIONS = [
     {
         name: "rock",
@@ -35,15 +38,36 @@ const TEAM_SELECTIONS = [
     {
         name: "bruk",
         sprite: "/assets/images/bruk-sprite.png",
-        icon: "/assets/images/bruk-icon.png"
+        icon: "/assets/images/bruk-icon.png",
+        position: null,
+        speed: 1,
+        health: 15,
+        moves: [
+            "smash",
+            "grind",
+            "polyfilla",
+            "spark"
+        ]
     },
     {
         name: "blinky",
         sprite: "/assets/images/blinky-sprite.png",
-        icon: "/assets/images/blinky-icon.png"
+        icon: "/assets/images/blinky-icon.png",
+        position: null,
+        health: 8,
+        speed: 4,
+        moves: [
+            "stare",
+            "slap",
+            "scratch",
+            "contact lense"
+        ]
     },
     {
-        name: "blady"
+        name: "blady",
+        position: null,
+        health: 10,
+        speed: 3
     }
 
 ]
@@ -57,12 +81,16 @@ const TEAM_SELECTIONS = [
 teamSelectionButtons.forEach(teamSelectionButtons => {
     teamSelectionButtons.addEventListener('click', e => {
         const selectedMonster = teamSelectionButtons.dataset.monster
-        const monster = TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)
-        console.log(monster.sprite)
+        console.log(newMonster)
+        newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === selectedMonster))
+        console.log(newMonster.sprite)
+        newMonster.position = playerTeam.length
 
         if(playerTeam.length < 6) {
-        playerTeam.push(monster)
+        playerTeam.push(newMonster)
         console.log(playerTeam)
+        console.log(newMonster)
+        newMonster.health = Math.floor(Math.random() * 10)
         
         for(let i = 0; i < playerTeam.length; i++)
         {
@@ -160,7 +188,17 @@ function showPopup(element){
 
 
 function startFight(){
-    console.log("yes")
-    console.log(playerMonsterPlaceholder)
-    console.log(enemyMonsterPlaceholder)
+    let i = 0;
+    let j = 0;
+    playerMonsterPlaceholder.style.backgroundImage = "url(" + playerTeam[0].sprite + ")"
+    enemyMonsterPlaceholder.style.backgroundImage = "url(" + enemyTeam[0].sprite + ")"
+    moveButtons.forEach(moveButtons => {
+        
+
+        moveButtons.innerHTML = playerTeam[0].moves[i]
+        i++
+    })
+        
+
+
 }

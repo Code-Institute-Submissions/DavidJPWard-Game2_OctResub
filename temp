@@ -1,0 +1,1 @@
+TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)

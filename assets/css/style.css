@@ -122,14 +122,17 @@ body{
     position: absolute;
     height: 300px;
     width: 300px;
-    top: 100px
+    top: 100px;
+    background-size: 300px
 }
 
 .enemy-placeholder{
     right: 50px;
+    
 }
 
 .player-placeholder{
     left: 50px;
+    transform: scaleX(-1);
 }
 
