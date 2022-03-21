@@ -136,3 +136,19 @@ body{
     transform: scaleX(-1);
 }
 
+.health-bar{
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    top: 20px;
+    background-color: bisque;
+}
+
+.player-health-bar{
+    left: 80px;
+}
+
+.enemy-health-bar{
+    right: 80px;
+}
+

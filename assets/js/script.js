@@ -13,6 +13,8 @@ const moveButtons = document.querySelectorAll(".move-button")
 const fightButton = document.querySelector("#start-fight")
 const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
 const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
+const playerHealthBar = document.querySelector(".player-health-bar")
+const enemyHealthBar = document.querySelector(".enemy-health-bar")
 
 
 const playerTeam = [];
@@ -90,7 +92,6 @@ teamSelectionButtons.forEach(teamSelectionButtons => {
         playerTeam.push(newMonster)
         console.log(playerTeam)
         console.log(newMonster)
-        newMonster.health = Math.floor(Math.random() * 10)
         
         for(let i = 0; i < playerTeam.length; i++)
         {
@@ -191,10 +192,10 @@ function startFight(){
     let i = 0;
     let j = 0;
     playerMonsterPlaceholder.style.backgroundImage = "url(" + playerTeam[0].sprite + ")"
+    playerHealthBar.innerHTML = "HP: " + playerTeam[0].health
     enemyMonsterPlaceholder.style.backgroundImage = "url(" + enemyTeam[0].sprite + ")"
+    enemyHealthBar.innerHTML = "HP: " + enemyTeam[0].health
     moveButtons.forEach(moveButtons => {
-        
-
         moveButtons.innerHTML = playerTeam[0].moves[i]
         i++
     })
