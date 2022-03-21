@@ -1,13 +1,47 @@
-window.MonstersDeck = {
-    "m001":{
-        name: "Bruk",
-        src: "/assets/images/m001.png",
-        icon: "/assets/images/hero.png",
-    },
-    "m002":{
-        name: "Blinky",
-        src: "/assets/images/m002.png",
-        icon: "/assets/images/enemy.png",
+class MonsterDeck{
+    constructor(deck){
+        this.MonsterDeck = deck
+
+    }
+
+    smash(controller, target, activePlayerMonster, activeEnemyMonster){
+        if(controller == "player"){
+            target = activeEnemyMonster
+        }else{
+            target = activePlayerMonster
+        }
+        console.log(target)
+
+    }
+
+    grind(controller, target, activePlayerMonster, activeEnemyMonster){
+        if(controller == "player"){
+            target = activeEnemyMonster
+        }else{
+            target = activePlayerMonster
+        }
+        console.log(target)
+
+    }
+
+    polyfilla(controller, target, activePlayerMonster, activeEnemyMonster){
+        if(controller == "player"){
+            target = activeEnemyMonster
+        }else{
+            target = activePlayerMonster
+        }
+        console.log(target)
+
+    }
+
+    spark(controller, target, activePlayerMonster, activeEnemyMonster){
+        if(controller == "player"){
+            target = activeEnemyMonster
+        }else{
+            target = activePlayerMonster
+        }
+        console.log(target)
+
     }
 
 }

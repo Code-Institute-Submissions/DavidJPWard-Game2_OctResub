@@ -15,11 +15,15 @@ const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
 const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
 const playerHealthBar = document.querySelector(".player-health-bar")
 const enemyHealthBar = document.querySelector(".enemy-health-bar")
+const output = document.querySelector(".output")
 
 
 const playerTeam = [];
 const enemyTeam = [];
 let newMonster = null;
+let activePlayerMonster = null;
+let activeEnemyMonster = null;
+const moveList = new MonsterDeck();
 
 const SELECTIONS = [
     {
@@ -41,14 +45,15 @@ const TEAM_SELECTIONS = [
         name: "bruk",
         sprite: "/assets/images/bruk-sprite.png",
         icon: "/assets/images/bruk-icon.png",
+        controller: null,
         position: null,
         speed: 1,
         health: 15,
         moves: [
-            "smash",
-            "grind",
-            "polyfilla",
-            "spark"
+            moveList.smash,
+            moveList.grind,
+            moveList.polyfilla,
+            moveList.spark
         ]
     },
     {
@@ -82,25 +87,8 @@ const TEAM_SELECTIONS = [
 
 teamSelectionButtons.forEach(teamSelectionButtons => {
     teamSelectionButtons.addEventListener('click', e => {
-        const selectedMonster = teamSelectionButtons.dataset.monster
-        console.log(newMonster)
-        newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === selectedMonster))
-        console.log(newMonster.sprite)
-        newMonster.position = playerTeam.length
+        selectTeamMember(teamSelectionButtons)
 
-        if(playerTeam.length < 6) {
-        playerTeam.push(newMonster)
-        console.log(playerTeam)
-        console.log(newMonster)
-        
-        for(let i = 0; i < playerTeam.length; i++)
-        {
-            portraitDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
-        }
-        } else {
-            
-            console.log("Team full")
-        }
     })
 })
 
@@ -119,7 +107,7 @@ removeButton.addEventListener("click", e => {
 })
 
 fightButton.addEventListener('click', e => { 
-    if(playerTeam.length > 1){
+    if(playerTeam.length > 0){
         createEnemyTeam()
         startFight()
         showPopup(battlePopup)
@@ -129,13 +117,39 @@ fightButton.addEventListener('click', e => {
 
 })
 
+console.log(moveButtons)
+
 
 
 
 
 teamPopupButton.addEventListener("click", e =>{
         showPopup(teamPopup)    
-    });
+});
+
+function selectTeamMember(element){
+    const selectedMonster = element.dataset.monster
+    console.log(newMonster)
+    newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === selectedMonster))
+    console.log(newMonster.sprite)
+    newMonster.position = playerTeam.length
+    newMonster.controller = "player"
+
+    if(playerTeam.length < 6) {
+    playerTeam.push(newMonster)
+    
+    console.log(playerTeam)
+    console.log(newMonster)
+    
+    for(let i = 0; i < playerTeam.length; i++)
+    {
+        portraitDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
+    }
+    } else {
+        
+        console.log("Team full")
+    }
+}
 
 
 
@@ -175,6 +189,8 @@ function createEnemyTeam(){
     for(let i = 0; i < playerTeam.length; i++){
         const randInt = Math.floor(Math.random() * TEAM_SELECTIONS.length)
         enemyTeam.push(TEAM_SELECTIONS[randInt])
+        enemyTeam[i].position = i
+        enemyTeam.controller = "comp"
     }
     console.log(enemyTeam)
 }
@@ -188,17 +204,26 @@ function showPopup(element){
 }
 
 
+
 function startFight(){
     let i = 0;
     let j = 0;
     playerMonsterPlaceholder.style.backgroundImage = "url(" + playerTeam[0].sprite + ")"
-    playerHealthBar.innerHTML = "HP: " + playerTeam[0].health
     enemyMonsterPlaceholder.style.backgroundImage = "url(" + enemyTeam[0].sprite + ")"
+    playerHealthBar.innerHTML = "HP: " + playerTeam[0].health
     enemyHealthBar.innerHTML = "HP: " + enemyTeam[0].health
+    activePlayerMonster = playerTeam[0]
+    activeEnemyMonster = enemyTeam[0]
+    
     moveButtons.forEach(moveButtons => {
-        moveButtons.innerHTML = playerTeam[0].moves[i]
+        console.log(playerTeam[0].moves[i])
+        moveButtons.innerHTML = playerTeam[0].moves[i].name
         i++
     })
+
+    
+
+    
         
 
 
