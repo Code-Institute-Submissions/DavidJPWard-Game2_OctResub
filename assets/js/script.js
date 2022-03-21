@@ -10,6 +10,8 @@ const brukButton = document.querySelector("#bruk")
 const removeButton = document.querySelector("#remove")
 const portraitDivs = document.querySelectorAll(".team-roster-position")
 const fightButton = document.querySelector("#start-fight")
+const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
+const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
 
 
 const playerTeam = [];
@@ -88,9 +90,14 @@ removeButton.addEventListener("click", e => {
 })
 
 fightButton.addEventListener('click', e => { 
-    createEnemyTeam
-    console.log(battlePopup)
-    showPopup(battlePopup)
+    if(playerTeam.length > 1){
+        createEnemyTeam()
+        startFight()
+        showPopup(battlePopup)
+    }else{
+        console.log("you need someone on your team")
+    }
+
 })
 
 
@@ -148,6 +155,12 @@ function showPopup(element){
         element.classList.remove("show")
     } else { !element.classList.contains("show") 
         element.classList.add("show");
+    }
 }
 
+
+function startFight(){
+    console.log("yes")
+    console.log(playerMonsterPlaceholder)
+    console.log(enemyMonsterPlaceholder)
 }

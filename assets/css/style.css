@@ -117,3 +117,19 @@ body{
     height: 50px;
 
 }
+
+.monster-placeholder{
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    top: 100px
+}
+
+.enemy-placeholder{
+    right: 50px;
+}
+
+.player-placeholder{
+    left: 50px;
+}
+
