@@ -97,28 +97,44 @@ fightButton.addEventListener('click', e => {
 
 })
 
+function PopulateMoveButtons(){
 
-moveButtons.forEach(teamSelectionButtons => {
-    teamSelectionButtons.addEventListener('click', e => {
+    if(activePlayerMonster != null){
+
         let i = 0
-        if(activePlayerMonster != null){
-            console.log(moveList[i])
-            activePlayerMonster.moveList[i]()
-        }
-        i++
-    })
-})
+
+        moveButtons.forEach(moveButtons => {
+            console.log(activePlayerMonster.moves[i])
+    
+            moveButtons.innerHTML = activePlayerMonster.moves[i].name
+            console.log("marco")
+            console.log(i.toString())
+            if(i < activePlayerMonster.moves.length){
+                let j = moveButtons.dataset.slot
+                moveButtons.addEventListener('click', e => {
+                    console.log("polo")
+                    
+                    console.log(activePlayerMonster.moves[j])
+                activePlayerMonster.moves[j]("player", activePlayerMonster, activeEnemyMonster)
+                })
+            }
+            i++
+                
+
+
+        })
+    }
+}
 
 
 
 teamPopupButton.addEventListener("click", e =>{
-        showPopup(teamPopup)    
+        showPopup(teamPopup)
+
 });
 
 function selectTeamMember(element){
-    const selectedMonster = element.dataset.monster
-
-    newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === selectedMonster))
+    newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === element.dataset.monster))
     newMonster.position = playerTeam.length
     newMonster.controller = "player"
 
@@ -198,19 +214,20 @@ function startFight(){
 
     playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
     enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
-    playerHealthBar.innerHTML = "HP: " + activePlayerMonster.health
-    enemyHealthBar.innerHTML = "HP: " + activeEnemyMonster.health
+    UpdateHealth()
 
     
-    moveButtons.forEach(moveButtons => {
-        console.log(playerTeam[0].moves[i])
-        moveButtons.innerHTML = activePlayerMonster.moves[i].name
-        i++
-    })
+
     PrintOutput(activePlayerMonster.name + " is fighting enemy " + activeEnemyMonster.name)
+    PopulateMoveButtons()
 }
 
 function PrintOutput(message)
 {
     output.innerHTML = message;
+}
+
+function UpdateHealth(){
+    playerHealthBar.innerHTML = "HP: " + activePlayerMonster.health
+    enemyHealthBar.innerHTML = "HP: " + activeEnemyMonster.health
 }

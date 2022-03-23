@@ -1,0 +1,41 @@
+TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)
+
+    constructor(config){
+        Object.keys(config).forEach(key => {
+            this[key] = config[key];
+
+
+            moveButtons.addEventListener("click", e => {console.log("lol")})
+
+                smash(controller, activePlayerMonster, activeEnemyMonster){
+        let target = null;
+        if(controller == "player"){
+            target = activeEnemyMonster
+        }else{
+            target = activePlayerMonster
+        }
+        console.log(target)
+        console.log(this.name)
+    }
+
+
+    function startFight(){
+    let i = 0;
+    activePlayerMonster = playerTeam[0]
+    activeEnemyMonster = enemyTeam[0]
+
+    playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
+    enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
+    playerHealthBar.innerHTML = "HP: " + activePlayerMonster.health
+    enemyHealthBar.innerHTML = "HP: " + activeEnemyMonster.health
+
+    
+    moveButtons.forEach(moveButtons => {
+        console.log(playerTeam[0].moves[i])
+
+        moveButtons.innerHTML = activePlayerMonster.moves[i].name
+        i++
+    })
+    PrintOutput(activePlayerMonster.name + " is fighting enemy " + activeEnemyMonster.name)
+    PopulateMoveButtons()
+}

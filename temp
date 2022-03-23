@@ -1,8 +1,0 @@
-TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)
-
-    constructor(config){
-        Object.keys(config).forEach(key => {
-            this[key] = config[key];
-
-
-            moveButtons.addEventListener("click", e => {console.log("lol")})

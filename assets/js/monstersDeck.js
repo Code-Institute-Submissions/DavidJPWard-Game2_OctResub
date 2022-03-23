@@ -4,44 +4,46 @@ class MonsterDeck{
 
     }
 
-    smash(controller, target, activePlayerMonster, activeEnemyMonster){
+
+    smash(controller, activePlayerMonster, activeEnemyMonster){
+            let target = null;
+            if(controller == "player"){
+                target = activeEnemyMonster
+            }else{
+                target = activePlayerMonster
+            }
+            target.health--
+            PrintOutput(activePlayerMonster.name + "used smash")
+    }
+    
+    grind(controller, activePlayerMonster, activeEnemyMonster){
+        let target = null;
         if(controller == "player"){
             target = activeEnemyMonster
         }else{
             target = activePlayerMonster
         }
-        console.log(target)
-        console.log(this.name)
+        PrintOutput(activePlayerMonster.name + "used grind")
     }
 
-    grind(controller, target, activePlayerMonster, activeEnemyMonster){
+    polyfilla(controller, activePlayerMonster, activeEnemyMonster){
+        let target = null;
         if(controller == "player"){
             target = activeEnemyMonster
         }else{
             target = activePlayerMonster
         }
-        console.log(target)
-        console.log(this.name)
+        PrintOutput(activePlayerMonster.name + "used polyfilla")
     }
 
-    polyfilla(controller, target, activePlayerMonster, activeEnemyMonster){
+    spark(controller, activePlayerMonster, activeEnemyMonster){
+        let target = null;
         if(controller == "player"){
             target = activeEnemyMonster
         }else{
             target = activePlayerMonster
         }
-        console.log(target)
-        console.log(this.name)
-    }
-
-    spark(controller, target, activePlayerMonster, activeEnemyMonster){
-        if(controller == "player"){
-            target = activeEnemyMonster
-        }else{
-            target = activePlayerMonster
-        }
-        console.log(target)
-        console.log(this.name)
+        PrintOutput(activePlayerMonster.name + "used spark")
     }
 
 }
