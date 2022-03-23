@@ -11,7 +11,7 @@ class MonsterDeck{
             target = activePlayerMonster
         }
         console.log(target)
-
+        console.log(this.name)
     }
 
     grind(controller, target, activePlayerMonster, activeEnemyMonster){
@@ -21,7 +21,7 @@ class MonsterDeck{
             target = activePlayerMonster
         }
         console.log(target)
-
+        console.log(this.name)
     }
 
     polyfilla(controller, target, activePlayerMonster, activeEnemyMonster){
@@ -31,7 +31,7 @@ class MonsterDeck{
             target = activePlayerMonster
         }
         console.log(target)
-
+        console.log(this.name)
     }
 
     spark(controller, target, activePlayerMonster, activeEnemyMonster){
@@ -41,7 +41,7 @@ class MonsterDeck{
             target = activePlayerMonster
         }
         console.log(target)
-
+        console.log(this.name)
     }
 
 }

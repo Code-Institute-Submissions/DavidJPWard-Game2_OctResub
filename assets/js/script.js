@@ -25,20 +25,6 @@ let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
 
-const SELECTIONS = [
-    {
-        name: "rock",
-        beats: "scissors"
-    },
-    {
-        name: "paper",
-        beats: "rock"
-    },
-    {
-        name: "scissors",
-        beats: "paper"
-    }
-]
 
 const TEAM_SELECTIONS = [
     {
@@ -79,12 +65,6 @@ const TEAM_SELECTIONS = [
 
 ]
 
-/*brukButton.addEventListener("click", e => {
-
-    playerTeam.push("bruk")
-    console.log(newMonster)...MonstersDeck["m001"].name
-})*/
-
 teamSelectionButtons.forEach(teamSelectionButtons => {
     teamSelectionButtons.addEventListener('click', e => {
         selectTeamMember(teamSelectionButtons)
@@ -117,9 +97,17 @@ fightButton.addEventListener('click', e => {
 
 })
 
-console.log(moveButtons)
 
-
+moveButtons.forEach(teamSelectionButtons => {
+    teamSelectionButtons.addEventListener('click', e => {
+        let i = 0
+        if(activePlayerMonster != null){
+            console.log(moveList[i])
+            activePlayerMonster.moveList[i]()
+        }
+        i++
+    })
+})
 
 
 
@@ -129,17 +117,13 @@ teamPopupButton.addEventListener("click", e =>{
 
 function selectTeamMember(element){
     const selectedMonster = element.dataset.monster
-    console.log(newMonster)
+
     newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === selectedMonster))
-    console.log(newMonster.sprite)
     newMonster.position = playerTeam.length
     newMonster.controller = "player"
 
     if(playerTeam.length < 6) {
     playerTeam.push(newMonster)
-    
-    console.log(playerTeam)
-    console.log(newMonster)
     
     for(let i = 0; i < playerTeam.length; i++)
     {
@@ -151,7 +135,9 @@ function selectTeamMember(element){
     }
 }
 
+function DoMove(){
 
+}
 
 function makeSelection(selection){
     const computerSelection = randomSelection();
@@ -207,24 +193,24 @@ function showPopup(element){
 
 function startFight(){
     let i = 0;
-    let j = 0;
-    playerMonsterPlaceholder.style.backgroundImage = "url(" + playerTeam[0].sprite + ")"
-    enemyMonsterPlaceholder.style.backgroundImage = "url(" + enemyTeam[0].sprite + ")"
-    playerHealthBar.innerHTML = "HP: " + playerTeam[0].health
-    enemyHealthBar.innerHTML = "HP: " + enemyTeam[0].health
     activePlayerMonster = playerTeam[0]
     activeEnemyMonster = enemyTeam[0]
+
+    playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
+    enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
+    playerHealthBar.innerHTML = "HP: " + activePlayerMonster.health
+    enemyHealthBar.innerHTML = "HP: " + activeEnemyMonster.health
+
     
     moveButtons.forEach(moveButtons => {
         console.log(playerTeam[0].moves[i])
-        moveButtons.innerHTML = playerTeam[0].moves[i].name
+        moveButtons.innerHTML = activePlayerMonster.moves[i].name
         i++
     })
+    PrintOutput(activePlayerMonster.name + " is fighting enemy " + activeEnemyMonster.name)
+}
 
-    
-
-    
-        
-
-
+function PrintOutput(message)
+{
+    output.innerHTML = message;
 }
