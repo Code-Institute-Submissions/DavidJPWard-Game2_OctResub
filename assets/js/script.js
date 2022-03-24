@@ -3,12 +3,12 @@
 const teamCreationPopupButton = document.querySelector(".select-team")
 const teamCreationPopup = document.querySelector(".team-select-popup")
 const battlePopup = document.querySelector(".battle-popup")
+const battlePopupButton = document.querySelector("#start-fight")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const removeButton = document.querySelector("#remove")
 const rosterDivs = document.querySelectorAll(".team-roster-position")
 const swapButtons = document.querySelectorAll(".swap-button")
 const moveButtons = document.querySelectorAll(".move-button")
-const fightButton = document.querySelector("#start-fight")
 const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
 const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
 const playerHealthBar = document.querySelector(".player-health-bar")
@@ -59,6 +59,8 @@ const TEAM_SELECTIONS = [
     },
     {
         name: "blady",
+        sprite: "/assets/images/blady-sprite.png",
+        icon: "assets/images/blady-icon.png",
         controller: null,
         position: null,
         health: 10,
@@ -109,7 +111,7 @@ removeButton.addEventListener("click", e => {
 
 /*button thats starts fight if number of team members is greater than 1*/
 
-fightButton.addEventListener('click', e => { 
+battlePopupButton.addEventListener('click', e => { 
     if(playerTeam.length > 0){
         createEnemyTeam()
         CommenceFight()
@@ -120,6 +122,15 @@ fightButton.addEventListener('click', e => {
 
 })
 
+/*buttons for your bench, allowing you to swap out monsters during battle*/
+
+swapButtons.forEach(swapButtons => {
+    swapButtons.addEventListener('click', e => {
+        swap(swapButtons.dataset.chair)
+    })
+})
+
+/*dnosdklcnmwpenm*/
 
 function PopulateMoveButtons(){
     if(activePlayerMonster != null){
@@ -297,7 +308,22 @@ function CalculateSpeed(){
     return fasterMonster
 }
 
-function swap(){}
+
+
+function swap(chair){
+    if(playerTeam.length <= chair && activePlayerMonster != playerTeam[chair]){
+        console.log("seat number: " + chair.toString())
+        console.log("monster at that chair: " + playerTeam[chair -1].name)
+        activePlayerMonster = playerTeam[chair-1]
+        playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
+        UpdateHealth()
+        PrintOutput("player swapped out to "+ activePlayerMonster.name)
+        PopulateMoveButtons()
+
+    }
+}
+
+
 
 /*called whenever an player makes and action, it takes the chosen action, calculates the monsters
 speed and then performs that action either first or second depending on how quick they are*/
