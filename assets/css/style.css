@@ -1,0 +1,173 @@
+body{
+    background-color: #ccc;
+}
+
+.selections{
+    display: flex;
+    justify-content: center;
+}
+
+.selection{
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: 100ms;
+}
+
+.selection:hover{
+    transform: scale(1.2);
+}
+
+.results{
+    margin-top: 1rem;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2 , 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.results-score{
+    margin-left: .1rem;
+    font-size: .5rem;
+    color: #333;
+}
+
+.result-selection{
+    opacity: .5;
+}
+
+.result-selection.winner{
+    opacity: 1;
+    font-size: 1.5rem;
+}
+
+.team-select-popup{
+    width: 800px;
+    height: 600px;
+    position: fixed;
+    background-color: rgb(30, 150, 30);
+    opacity:0%;
+    z-index: -1;
+    text-align: center;
+    
+}
+
+.battle-popup{
+    width: 800px;
+    height: 600px;
+    position: fixed;
+    background-color: rgb(78, 82, 133);
+    opacity:0%;
+    z-index: -1;
+    text-align: center; 
+}
+.show{
+    opacity: 1;
+    pointer-events: auto;
+    z-index: +1;
+}
+
+.team-selection-bar{
+    background-color: blue;
+    margin-top: 50px;
+}
+
+.team-selection{
+    height: 50px;
+    width: 50px;
+}
+
+.team-roster{
+    background-color: blue;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.team-roster-position{
+    width: 100px;
+    height: 100px;
+    margin: 3px;
+    border: 3px solid;
+    background-image: url("/assets/images/empty-icon.png");
+}
+
+.game-window{
+    height: 500px;
+}
+
+.output{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background-color: azure;
+    text-align: left;
+}
+
+.move-bar{
+    display: grid;
+        grid-template-columns: 200px 200px 400px;
+
+}
+
+.move-button{
+
+    height: 50px;
+
+}
+
+.monster-placeholder{
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    top: 100px;
+    background-size: 300px
+}
+
+.enemy-placeholder{
+    right: 50px;
+    
+}
+
+.player-placeholder{
+    left: 50px;
+    transform: scaleX(-1);
+}
+
+.health-bar{
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    top: 20px;
+    background-color: bisque;
+}
+
+.player-health-bar{
+    left: 80px;
+}
+
+.enemy-health-bar{
+    right: 80px;
+}
+
+.bench{
+    height: 76px;
+    width: 455px;
+    position: absolute;
+    bottom: 100px;
+    background-color: aqua;
+    display: flex;
+}
+
+.swap-button{
+    height: 70px;
+    width: 70px;
+    margin: 3px 5px 3px 5px;
+    background-color: chartreuse;
+    display: flex;
+    background-size: 70px
+}

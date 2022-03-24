@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body>
+    <div>
+        <button class="select-team">choose team</button>
+        <button id="start-fight">FIGHT!</button>
+    </div>
+    <div class="team-select-popup">
+        <div class="team-selection-bar">
+            <button class="team-selection" data-monster="blady">blady</button>
+            <button class="team-selection" data-monster="blinky">blinky</button>
+            <button id="bruk" class="team-selection" data-monster="bruk">bruk</button>
+        </div>
+        <div class="team-roster">
+            <div id="position1" class="team-roster-position"></div>
+            <div id="position2" class="team-roster-position"></div>
+            <div id="position3" class="team-roster-position"></div>
+            <div id="position4" class="team-roster-position"></div>
+            <div id="position5" class="team-roster-position"></div>
+            <div id="position6" class="team-roster-position"></div>
+
+            <button id="remove"> Remove </button>
+        </div>
+    </div>
+
+    <div class="battle-popup">
+        <div class="game-window">
+            <div class="monster-placeholder player-placeholder"></div>
+            <div class="monster-placeholder enemy-placeholder"></div>
+            <div class="health-bar player-health-bar"></div>
+            <div class="health-bar enemy-health-bar"></div>
+        </div>
+        <div class="bench">
+            <button class="swap-button" data-chair="1"></button>
+            <button class="swap-button" data-chair="2"></button>
+            <button class="swap-button" data-chair="3"></button>
+            <button class="swap-button" data-chair="4"></button>
+            <button class="swap-button" data-chair="5"></button>
+            <button class="swap-button" data-chair="6"></button>
+        </div>
+        <div class="move-bar">
+            <button class="move-button" data-slot="0"></button>
+            <button class="move-button" data-slot="1"></button>
+            <button class="move-button" data-slot="2"></button>
+            <button class="move-button" data-slot="3"></button>
+            <div class="output"></div>
+        </div>
+        
+    </div>
+
+    <div class="selections">
+        <button class="selection" data-selection="rock">rock</button>
+        <button class="selection" data-selection="paper">paper</button>
+        <button class="selection" data-selection="scissors">scissors</button>
+    </div>
+    <div class="results">
+        <div>
+            you
+            <span class="results-score" data-your-score>0</span>
+        </div>
+        <div data-final-column>
+            comp
+            <span class="results-score" data-computer-score>0</span>
+        </div>
+    </div>
+    <script src="/assets/js/monstersDeck.js"></script>
+    <script src="/assets/js/monster.js"></script>
+    <script src="assets/js/script.js" defer></script>
+</body>
+</html>
