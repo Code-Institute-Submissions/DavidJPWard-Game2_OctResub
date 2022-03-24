@@ -39,3 +39,33 @@ TEAM_SELECTIONS.find(monster => monster.name === selectedMonster)
     PrintOutput(activePlayerMonster.name + " is fighting enemy " + activeEnemyMonster.name)
     PopulateMoveButtons()
 }
+
+
+
+
+teamSelectionButtons.forEach(teamSelectionButtons => {
+    teamSelectionButtons.addEventListener('click', e => {
+        selectTeamMember(teamSelectionButtons)
+
+    })
+})
+
+function selectTeamMember(element){
+    const selectedMonster = element.dataset.monster
+
+    newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === selectedMonster))
+    newMonster.position = playerTeam.length
+    newMonster.controller = "player"
+
+    if(playerTeam.length < 6) {
+    playerTeam.push(newMonster)
+    
+    for(let i = 0; i < playerTeam.length; i++)
+    {
+        portraitDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
+    }
+    } else {
+        
+        console.log("Team full")
+    }
+}

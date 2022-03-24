@@ -6,7 +6,7 @@ const teamPopupButton = document.querySelector(".select-team")
 const teamPopup = document.querySelector(".team-select-popup")
 const battlePopup = document.querySelector(".battle-popup")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
-const brukButton = document.querySelector("#bruk")
+
 const removeButton = document.querySelector("#remove")
 const rosterDivs = document.querySelectorAll(".team-roster-position")
 const swapButtons = document.querySelectorAll(".swap-button")
@@ -25,6 +25,7 @@ let newMonster = null;
 let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
+let fired = false;
 
 
 const TEAM_SELECTIONS = [
@@ -37,10 +38,10 @@ const TEAM_SELECTIONS = [
         speed: 1,
         health: 15,
         moves: [
-            moveList.smash,
-            moveList.grind,
-            moveList.polyfilla,
-            moveList.spark
+            moveList.Smash,
+            moveList.Grind,
+            moveList.Polyfilla,
+            moveList.Spark
         ]
     },
     {
@@ -51,17 +52,23 @@ const TEAM_SELECTIONS = [
         health: 8,
         speed: 4,
         moves: [
-            "stare",
-            "slap",
-            "scratch",
-            "contact lense"
+            moveList.Stare,
+            moveList.Slap,
+            moveList.Scratch,
+            moveList.ContactLense
         ]
     },
     {
         name: "blady",
         position: null,
         health: 10,
-        speed: 3
+        speed: 3,
+        moves: [
+            moveList.Slice,
+            moveList.Sharpen,
+            moveList.RunWithScissors,
+            moveList.Scratch
+        ]
     }
 
 ]
@@ -86,6 +93,8 @@ removeButton.addEventListener("click", e => {
         console.log("Team empty")
     }
 })
+
+/*button thats starts fight if number of team members is greater than 1*/
 
 fightButton.addEventListener('click', e => { 
     if(playerTeam.length > 0){
@@ -115,15 +124,21 @@ function PopulateMoveButtons(){
             console.log(activePlayerMonster.moves[i])
     
             moveButtons.innerHTML = activePlayerMonster.moves[i].name
-            console.log("marco")
-            console.log(i.toString())
+            console.log("button text added")
+
             if(i < activePlayerMonster.moves.length){
+
                 let j = moveButtons.dataset.slot
+                console.log("move button data slot: " + j.toString())
+
                 moveButtons.addEventListener('click', e => {
-                    console.log("polo")
+                    fired = true;
+                    console.log("fired is true")
+                    console.log("move button data set after event handler: " + moveButtons.dataset.slot.toString())
                     
-                    console.log(activePlayerMonster.moves[j])
-                activePlayerMonster.moves[j]("player", activePlayerMonster, activeEnemyMonster)
+                    console.log(activePlayerMonster.name + "s move: " + activePlayerMonster.moves[moveButtons.dataset.slot])
+                    console.log("arguement to be passed: " + activePlayerMonster.moves[moveButtons.dataset.slot]("player", activePlayerMonster, activeEnemyMonster))
+                    TurnCycle(activePlayerMonster.moves[moveButtons.dataset.slot])
                 })
             }
             i++
@@ -150,14 +165,6 @@ function selectTeamMember(element){
         
         console.log("Team full")
     }
-}
-
-
-
-
-function incrementScore(scoreSpan)
-{
-    scoreSpan.innerText = parseInt(scoreSpan.innerText) + 1
 }
 
 
@@ -209,19 +216,78 @@ function PrintOutput(message)
 function UpdateHealth(){
     playerHealthBar.innerHTML = "HP: " + activePlayerMonster.health
     enemyHealthBar.innerHTML = "HP: " + activeEnemyMonster.health
+    console.log("health updated")
 }
 
 function EnemyMove(){
-    
-
     let i= Math.floor(Math.random() * 10)
     if(i < 8)
     {
         i = Math.floor(Math.random() * 3)
+        console.log("enemy move slot used: " + i.toString())
+        console.log("corrosponding move in that slot" + activeEnemyMonster.moves[i])
         activeEnemyMonster.moves[i]("enemy", activePlayerMonster, activeEnemyMonster)
     }else{
-        swapButtons()
+        console.log("swapButtons()")
     }
 }
 
-function swap()
+function CalculateSpeed(){
+    let fasterMonster = null;
+
+    console.log("enemys speed value: " +activeEnemyMonster.speed.toString())
+    console.log("players speed value: " +activePlayerMonster.speed.toString())
+
+    if(activePlayerMonster.speed > activeEnemyMonster.speed){
+        fasterMonster = activePlayerMonster
+        console.log("player faster")
+    }else if(activePlayerMonster.speed == activeEnemyMonster.speed){
+        console.log("same speed: ")
+        if(Math.floor(Math.random() * 2) == 1){
+            fasterMonster = activePlayerMonster
+            console.log("player won coin flip")
+        }else{
+            fasterMonster = activeEnemyMonster
+            console.log("enemy won coin flip")
+        }
+        
+    }else{
+        fasterMonster = activeEnemyMonster
+        console.log("enemy faster")
+    }
+
+    console.log(fasterMonster.name + " to move first")
+
+    PrintOutput(fasterMonster.controller + " " + fasterMonster.name + " went first")
+    return fasterMonster
+}
+
+function swap(){}
+
+function TurnCycle(action){
+    if(activePlayerMonster == CalculateSpeed()){
+        console.log(fired)
+        console.log("player will use: " + action)
+
+        action(activePlayerMonster, activeEnemyMonster)
+        console.log("player move completed")
+        UpdateHealth()
+        if(activeEnemyMonster.health>0){
+            EnemyMove()
+        }
+    }
+    else{
+        console.log("enemy moved")
+        console.log(action)
+        EnemyMove()
+        UpdateHealth()
+        if(activePlayerMonster.health>0){
+            console.log(fired)
+            console.log("player will use: " + action)
+
+            action(activePlayerMonster, activeEnemyMonster)
+            console.log("player move completed")
+        }
+    }
+
+}
