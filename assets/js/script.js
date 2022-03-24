@@ -8,7 +8,8 @@ const battlePopup = document.querySelector(".battle-popup")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const brukButton = document.querySelector("#bruk")
 const removeButton = document.querySelector("#remove")
-const portraitDivs = document.querySelectorAll(".team-roster-position")
+const rosterDivs = document.querySelectorAll(".team-roster-position")
+const swapButtons = document.querySelectorAll(".swap-button")
 const moveButtons = document.querySelectorAll(".move-button")
 const fightButton = document.querySelector("#start-fight")
 const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
@@ -76,7 +77,7 @@ removeButton.addEventListener("click", e => {
     if(playerTeam.length >= 1) {
         let i = playerTeam.length - 1
 
-        portraitDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png";
+        rosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png";
 
         playerTeam.pop()
 
@@ -89,13 +90,20 @@ removeButton.addEventListener("click", e => {
 fightButton.addEventListener('click', e => { 
     if(playerTeam.length > 0){
         createEnemyTeam()
-        startFight()
+        CommenceFight()
         showPopup(battlePopup)
     }else{
         console.log("you need someone on your team")
     }
 
 })
+
+
+
+teamPopupButton.addEventListener("click", e =>{
+        showPopup(teamPopup)
+
+});
 
 function PopulateMoveButtons(){
 
@@ -126,13 +134,6 @@ function PopulateMoveButtons(){
     }
 }
 
-
-
-teamPopupButton.addEventListener("click", e =>{
-        showPopup(teamPopup)
-
-});
-
 function selectTeamMember(element){
     newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === element.dataset.monster))
     newMonster.position = playerTeam.length
@@ -143,7 +144,7 @@ function selectTeamMember(element){
     
     for(let i = 0; i < playerTeam.length; i++)
     {
-        portraitDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
+        rosterDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
     }
     } else {
         
@@ -151,37 +152,12 @@ function selectTeamMember(element){
     }
 }
 
-function DoMove(){
 
-}
 
-function makeSelection(selection){
-    const computerSelection = randomSelection();
-    const yourWinner = isWinner(selection, computerSelection);
-    const oppWinner = isWinner(computerSelection, selection);
-
-    addSelectionResult(computerSelection, oppWinner);
-    addSelectionResult(selection, yourWinner);
-    if (yourWinner) incrementScore(yourScoreSpan)
-    if (oppWinner)incrementScore(computerScoreSpan)
-}
 
 function incrementScore(scoreSpan)
 {
     scoreSpan.innerText = parseInt(scoreSpan.innerText) + 1
-}
-
-function addSelectionResult(selection, winner){
-    const div = document.createElement("div")
-    div.innerText = selection.name
-    div.classList.add("result-selection")
-    if(winner) div.classList.add("winner")
-    finalColumn.after(div)
-    
-}
-
-function isWinner(selection, opponentSelection){
-    return selection.beats === opponentSelection.name
 }
 
 
@@ -207,11 +183,14 @@ function showPopup(element){
 
 
 
-function startFight(){
-    let i = 0;
+function CommenceFight(){
+
     activePlayerMonster = playerTeam[0]
     activeEnemyMonster = enemyTeam[0]
-
+    for(let i = 0; i < 6; i++){
+        if(playerTeam[i] != null)
+            swapButtons[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")"
+    }
     playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
     enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
     UpdateHealth()
@@ -231,3 +210,18 @@ function UpdateHealth(){
     playerHealthBar.innerHTML = "HP: " + activePlayerMonster.health
     enemyHealthBar.innerHTML = "HP: " + activeEnemyMonster.health
 }
+
+function EnemyMove(){
+    
+
+    let i= Math.floor(Math.random() * 10)
+    if(i < 8)
+    {
+        i = Math.floor(Math.random() * 3)
+        activeEnemyMonster.moves[i]("enemy", activePlayerMonster, activeEnemyMonster)
+    }else{
+        swapButtons()
+    }
+}
+
+function swap()

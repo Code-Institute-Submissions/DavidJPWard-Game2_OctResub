@@ -13,7 +13,7 @@ class MonsterDeck{
                 target = activePlayerMonster
             }
             target.health--
-            PrintOutput(activePlayerMonster.name + "used smash")
+            PrintOutput(activePlayerMonster.name + " used smash")
     }
     
     grind(controller, activePlayerMonster, activeEnemyMonster){
@@ -23,7 +23,7 @@ class MonsterDeck{
         }else{
             target = activePlayerMonster
         }
-        PrintOutput(activePlayerMonster.name + "used grind")
+        PrintOutput(activePlayerMonster.name + " used grind")
     }
 
     polyfilla(controller, activePlayerMonster, activeEnemyMonster){
@@ -33,7 +33,7 @@ class MonsterDeck{
         }else{
             target = activePlayerMonster
         }
-        PrintOutput(activePlayerMonster.name + "used polyfilla")
+        PrintOutput(activePlayerMonster.name + " used polyfilla")
     }
 
     spark(controller, activePlayerMonster, activeEnemyMonster){
@@ -43,7 +43,7 @@ class MonsterDeck{
         }else{
             target = activePlayerMonster
         }
-        PrintOutput(activePlayerMonster.name + "used spark")
+        PrintOutput(activePlayerMonster.name + " used spark")
     }
 
 }
