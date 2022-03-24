@@ -16,127 +16,59 @@ class MonsterDeck{
     Smash(self, target){
             PrintOutput(self.name + " used smash")
             target.health--
-            console.log("SHITTAAAAAAAAAA")
     }
     
-    Grind(controller, activePlayerMonster, activeEnemyMonster){
-        console.log(activePlayerMonster)
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-        }else{
-            target = activePlayerMonster
-        }
+    Grind(self, target){
         target.health--
-        PrintOutput(activePlayerMonster.name + " used grind")
+        PrintOutput(self.name + " used grind")
     }
 
-    Polyfilla(controller, activePlayerMonster, activeEnemyMonster){
-        console.log(activePlayerMonster)
-        let target = null;
-        if(controller == "player"){
-            target = activePlayerMonster
-        }else{
-            target = activeEnemyMonster
-        }
-        PrintOutput(activePlayerMonster.name + " used polyfilla")
-        target.health++
+    Polyfilla(self, target){
+        PrintOutput(self.name + " used polyfilla")
+        self.health++
     }
 
-    Spark(controller, activePlayerMonster, activeEnemyMonster){
-        console.log(activePlayerMonster)
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-        }else{
-            target = activePlayerMonster
-        }
-        PrintOutput(activePlayerMonster.name + " used spark")
+    Spark(self, target){
+        PrintOutput(self.name + " used spark")
         target.health--
     }
 
-    ContactLense(controller, activePlayerMonster, activeEnemyMonster){
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-        }else{
-            target = activePlayerMonster
-        }
-        PrintOutput(activePlayerMonster.name + " used ContactLense")
+    ContactLense(self, target){
+        PrintOutput(self.name + " used ContactLense")
         target.health--
     }
 
-    Stare(controller, activePlayerMonster, activeEnemyMonster){
-        console.log(activePlayerMonster)
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-        }else{
-            target = activePlayerMonster
-        }
-        PrintOutput(activePlayerMonster.name + " used Stare")
+    Stare(self, target){
+        PrintOutput(self.name + " used Stare")
         target.health--
     }
 
-    Slap(controller, activePlayerMonster, activeEnemyMonster){
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-        }else{
-            target = activePlayerMonster
-        }
-        PrintOutput(activePlayerMonster.name + " used Slap")
+    Slap(self, target){
+        PrintOutput(self.name + " used Slap")
         target.health--
     }
 
-    Scratch(controller, activePlayerMonster, activeEnemyMonster){
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-            PrintOutput(activePlayerMonster.name + " used Scratch")
-        }else{
-            target = activePlayerMonster
-        }
+    Scratch(self, target){
 
+        PrintOutput(self.name + " used Scratch")
         target.health--
     }
 
 
-    Slice(controller, activePlayerMonster, activeEnemyMonster){
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-            PrintOutput(activePlayerMonster.name + " used Scratch")
-        }else{
-            target = activePlayerMonster
-        }
-
+    Slice(self, target){
+        PrintOutput(self.name + " used Scratch")
         target.health--
     }
 
     
-    Sharpen(controller, activePlayerMonster, activeEnemyMonster){
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-            PrintOutput(activePlayerMonster.name + " used Scratch")
-        }else{
-            target = activePlayerMonster
-        }
-
+    Sharpen(self, target){
+        PrintOutput(self.name + " used Sharpen")
         target.health--
     }
 
     
-    RunWithScissors(controller, activePlayerMonster, activeEnemyMonster){
-        let target = null;
-        if(controller == "player"){
-            target = activeEnemyMonster
-            PrintOutput(activePlayerMonster.name + " is running with scissors")
-        }else{
-            target = activePlayerMonster
-        }
-
+    RunWithScissors(self, target){
+        PrintOutput(activePlayerMonster.name + " is running with scissors")
         target.health--
     }
 

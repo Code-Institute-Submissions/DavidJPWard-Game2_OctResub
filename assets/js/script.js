@@ -1,12 +1,9 @@
-const selectionButtons = document.querySelectorAll('[data-selection]')
-const finalColumn = document.querySelector('[data-final-column]')
-const computerScoreSpan = document.querySelector("[data-computer-score]")
-const yourScoreSpan = document.querySelector("[data-your-score]")
-const teamPopupButton = document.querySelector(".select-team")
-const teamPopup = document.querySelector(".team-select-popup")
+/*elements*/
+
+const teamCreationPopupButton = document.querySelector(".select-team")
+const teamCreationPopup = document.querySelector(".team-select-popup")
 const battlePopup = document.querySelector(".battle-popup")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
-
 const removeButton = document.querySelector("#remove")
 const rosterDivs = document.querySelectorAll(".team-roster-position")
 const swapButtons = document.querySelectorAll(".swap-button")
@@ -18,6 +15,7 @@ const playerHealthBar = document.querySelector(".player-health-bar")
 const enemyHealthBar = document.querySelector(".enemy-health-bar")
 const output = document.querySelector(".output")
 
+/*variables*/
 
 const playerTeam = [];
 const enemyTeam = [];
@@ -25,8 +23,8 @@ let newMonster = null;
 let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
-let fired = false;
 
+/*list of monsters*/
 
 const TEAM_SELECTIONS = [
     {
@@ -48,6 +46,7 @@ const TEAM_SELECTIONS = [
         name: "blinky",
         sprite: "/assets/images/blinky-sprite.png",
         icon: "/assets/images/blinky-icon.png",
+        controller: null,
         position: null,
         health: 8,
         speed: 4,
@@ -60,6 +59,7 @@ const TEAM_SELECTIONS = [
     },
     {
         name: "blady",
+        controller: null,
         position: null,
         health: 10,
         speed: 3,
@@ -73,12 +73,25 @@ const TEAM_SELECTIONS = [
 
 ]
 
+/*--------EVENT LISTENERS--------*/
+
+/*button that opens the team creation popup*/
+
+teamCreationPopupButton.addEventListener("click", e =>{
+        showPopup(teamCreationPopup)
+
+});
+
+/* buttons that allows you to pick team members in the team creation popup*/
+
 teamSelectionButtons.forEach(teamSelectionButtons => {
     teamSelectionButtons.addEventListener('click', e => {
         selectTeamMember(teamSelectionButtons)
 
     })
 })
+
+/* button to remove a member from your team in the team creation popup*/
 
 removeButton.addEventListener("click", e => {
     if(playerTeam.length >= 1) {
@@ -108,47 +121,27 @@ fightButton.addEventListener('click', e => {
 })
 
 
-
-teamPopupButton.addEventListener("click", e =>{
-        showPopup(teamPopup)
-
-});
-
 function PopulateMoveButtons(){
-
     if(activePlayerMonster != null){
-
         let i = 0
-
         moveButtons.forEach(moveButtons => {
-            console.log(activePlayerMonster.moves[i])
-    
             moveButtons.innerHTML = activePlayerMonster.moves[i].name
-            console.log("button text added")
-
             if(i < activePlayerMonster.moves.length){
-
-                let j = moveButtons.dataset.slot
-                console.log("move button data slot: " + j.toString())
-
                 moveButtons.addEventListener('click', e => {
                     fired = true;
-                    console.log("fired is true")
-                    console.log("move button data set after event handler: " + moveButtons.dataset.slot.toString())
+
                     
                     console.log(activePlayerMonster.name + "s move: " + activePlayerMonster.moves[moveButtons.dataset.slot])
-                    console.log("arguement to be passed: " + activePlayerMonster.moves[moveButtons.dataset.slot]("player", activePlayerMonster, activeEnemyMonster))
                     TurnCycle(activePlayerMonster.moves[moveButtons.dataset.slot])
                 })
             }
             i++
-                
-
-
         })
     }
 }
 
+/*upon selection of a monster in the team creation popup, this function checks if 
+there is space avialable on the team and then adds that monsterto the team */
 function selectTeamMember(element){
     newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === element.dataset.monster))
     newMonster.position = playerTeam.length
@@ -168,18 +161,25 @@ function selectTeamMember(element){
 }
 
 
-
+/*on the start of a battle this function checks the number of monsters in the player 
+team and randomly selects the same amount of monsters from the TEAM_SELECTIONS pool 
+and creates an enemy team*/
 function createEnemyTeam(){
     enemyTeam.length = 0
     for(let i = 0; i < playerTeam.length; i++){
         const randInt = Math.floor(Math.random() * TEAM_SELECTIONS.length)
-        enemyTeam.push(TEAM_SELECTIONS[randInt])
+        newMonster = new Monster(TEAM_SELECTIONS[randInt])
+        console.log(newMonster)
+        enemyTeam.push(newMonster)
+
         enemyTeam[i].position = i
-        enemyTeam.controller = "comp"
+        enemyTeam.controller = "enemy"
     }
     console.log(enemyTeam)
 }
 
+
+/*this function adds a show class to the various popups*/
 function showPopup(element){
     if(element.classList.contains("show")){ 
         element.classList.remove("show")
@@ -189,7 +189,13 @@ function showPopup(element){
 }
 
 
-
+/*this function is called on the start of a battle, it sets:
+    -the active monster for both teams
+    -the sprite for thos monsters
+    -the icons for your team on the bench
+    -starting health for both monsters
+    -the opening messgae in the output box
+    -calls the populateButtons method*/
 function CommenceFight(){
 
     activePlayerMonster = playerTeam[0]
@@ -208,17 +214,44 @@ function CommenceFight(){
     PopulateMoveButtons()
 }
 
-function PrintOutput(message)
+
+/*prints out a message to the output box, one letter at a time*/
+async function PrintOutput(message)
 {
-    output.innerHTML = message;
+    let newString = ">"
+    let messageToPrint = " "
+    for(let i = 0; i <= message.length; i++)
+    {       
+        messageToPrint = newString + message.charAt(i)
+        newString = messageToPrint
+        output.innerHTML = messageToPrint
+        await delay(.01);
+    }
+
 }
 
+/*used by the PrintOutput() function to delay the printing of each chracter in the string*/
+function delay(n){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+}
+
+function wait(){
+    return new Promise(function(resolve){
+
+    })
+}
+
+/*updates the health display, called after every move is completed*/
 function UpdateHealth(){
     playerHealthBar.innerHTML = "HP: " + activePlayerMonster.health
     enemyHealthBar.innerHTML = "HP: " + activeEnemyMonster.health
     console.log("health updated")
 }
 
+/*randomly selects a move from the enemys move pool, there is a also a small chance that the 
+enemy monster will swap out*/
 function EnemyMove(){
     let i= Math.floor(Math.random() * 10)
     if(i < 8)
@@ -226,12 +259,14 @@ function EnemyMove(){
         i = Math.floor(Math.random() * 3)
         console.log("enemy move slot used: " + i.toString())
         console.log("corrosponding move in that slot" + activeEnemyMonster.moves[i])
-        activeEnemyMonster.moves[i]("enemy", activePlayerMonster, activeEnemyMonster)
+        activeEnemyMonster.moves[i](activeEnemyMonster, activePlayerMonster)
     }else{
         console.log("swapButtons()")
     }
 }
 
+
+/*calculates which monster will go first depending both monsters speed stats*/
 function CalculateSpeed(){
     let fasterMonster = null;
 
@@ -257,16 +292,18 @@ function CalculateSpeed(){
     }
 
     console.log(fasterMonster.name + " to move first")
-
-    PrintOutput(fasterMonster.controller + " " + fasterMonster.name + " went first")
+    console.log(fasterMonster)
+    PrintOutput(fasterMonster.controller.toString + " " + fasterMonster.name + " went first")
     return fasterMonster
 }
 
 function swap(){}
 
+/*called whenever an player makes and action, it takes the chosen action, calculates the monsters
+speed and then performs that action either first or second depending on how quick they are*/
 function TurnCycle(action){
     if(activePlayerMonster == CalculateSpeed()){
-        console.log(fired)
+
         console.log("player will use: " + action)
 
         action(activePlayerMonster, activeEnemyMonster)
@@ -282,7 +319,7 @@ function TurnCycle(action){
         EnemyMove()
         UpdateHealth()
         if(activePlayerMonster.health>0){
-            console.log(fired)
+
             console.log("player will use: " + action)
 
             action(activePlayerMonster, activeEnemyMonster)
