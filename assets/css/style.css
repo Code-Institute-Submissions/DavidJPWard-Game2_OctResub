@@ -1,5 +1,56 @@
 body{
     background-color: #ccc;
+    font-family: monospace;
+}
+
+#page-layout{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#title{
+    font-size: 100px;
+    margin-bottom: 20px;
+}
+
+.score{
+    display: inline;
+    font-size: 40px;
+    margin: 50px;
+}
+
+.team-container{
+    margin-top: 50px;
+}
+
+.team-roster-main-page{
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+}
+
+.main-page-button{
+
+    height: 30px;
+    width: 200px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: 100ms;
+    margin: 20px;
+}
+
+.team-roster-position-main-page{
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    border: 3px solid;
+    background-image: url("/assets/images/empty-icon.png");
+    background-size: 50px;
 }
 
 .selections{
@@ -16,24 +67,15 @@ body{
     transition: 100ms;
 }
 
-.selection:hover{
+.close-button:hover{
     transform: scale(1.2);
 }
 
-.results{
-    margin-top: 1rem;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(2 , 1fr);
-    justify-items: center;
-    align-items: center;
+.main-page-button:hover{
+    transform: scale(1.2);
 }
 
-.results-score{
-    margin-left: .1rem;
-    font-size: .5rem;
-    color: #333;
-}
+
 
 .result-selection{
     opacity: .5;
@@ -48,6 +90,8 @@ body{
     width: 800px;
     height: 600px;
     position: fixed;
+    top: 10%;
+    left: 20%;
     background-color: rgb(30, 150, 30);
     opacity:0%;
     z-index: -1;
@@ -59,11 +103,30 @@ body{
     width: 800px;
     height: 600px;
     position: fixed;
+    top: 10%;
+    left: 20%;
     background-color: rgb(78, 82, 133);
     opacity:0%;
     z-index: -1;
     text-align: center; 
 }
+
+.close-button{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    right: 3px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: 100ms;
+}
+
+
+
 .show{
     opacity: 1;
     pointer-events: auto;
@@ -101,16 +164,25 @@ body{
 
 .output{
     grid-column-start: 3;
-    grid-column-end: 4;
+    grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 3;
     background-color: azure;
     text-align: left;
+    border-radius: 5px;
+}
+
+.continue-button{
+    grid-column: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background-color: black;
+    color: azure;
 }
 
 .move-bar{
-    display: grid;
-        grid-template-columns: 200px 200px 400px;
+        display: grid;
+        grid-template-columns: 200px 200px 300px 100px;
 
 }
 
