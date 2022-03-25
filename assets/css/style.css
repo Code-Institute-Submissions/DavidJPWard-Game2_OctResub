@@ -184,17 +184,10 @@ body{
     border: 1px black solid;
 }
 
-.continue-button{
-    grid-column: 4;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    background-color: black;
-    color: azure;
-}
 
 .move-bar{
         display: grid;
-        grid-template-columns: 200px 200px 300px 100px;
+        grid-template-columns: 200px 200px 300px;
 
 }
 
