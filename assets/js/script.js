@@ -356,8 +356,7 @@ function TurnCycle(action){
         UpdateHealth()
         if(activeEnemyMonster.health>0){
             EnemyMove(false)
-
-
+            UpdateHealth()
         }else{
             PrintOutput(activePlayerMonster.controller + "s " + activePlayerMonster.name + " has fainted", false)
             activePlayerMonster = null;
@@ -371,6 +370,7 @@ function TurnCycle(action){
         UpdateHealth()
         if(activePlayerMonster.health>0){
             action(activePlayerMonster, activeEnemyMonster, false)
+            UpdateHealth()
         }else{
             PrintOutput(activeEnemyMonster.controller + "s " + activeEnemyMonster.name + " has fainted", false)
             activeEnemyMonster = null;
