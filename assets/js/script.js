@@ -31,9 +31,6 @@ let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
 
-const wait = new Promise((resolve, reject))
-
-//Wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
 /*list of monsters*/
 
@@ -269,25 +266,9 @@ async function PrintOutput(message)
         output.innerHTML = messageToPrint
         await delay(.01);
     }
-
-    do{
-        await delay(1)
-        console.log("wait")
-    }while(wait = true)
-
-
 }
 
 
-
-function Wait(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
-  
 
 /*used by the PrintOutput() function to delay the printing of each chracter in the string*/
 function delay(n){
@@ -377,10 +358,12 @@ function TurnCycle(action){
         console.log("player will use: " + action)
 
         action(activePlayerMonster, activeEnemyMonster)
+
         console.log("player move completed")
         UpdateHealth()
         if(activeEnemyMonster.health>0){
             EnemyMove()
+
         }
     }
     else{

@@ -68,7 +68,7 @@ class MonsterDeck{
 
     
     RunWithScissors(self, target){
-        PrintOutput(activePlayerMonster.name + " is running with scissors")
+        PrintOutput(self.name + " is running with scissors")
         target.health--
     }
 
