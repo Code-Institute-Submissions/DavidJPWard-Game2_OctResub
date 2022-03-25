@@ -30,8 +30,10 @@ let newMonster = null;
 let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
-let wait = false;
-Wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+
+const wait = new Promise((resolve, reject))
+
+//Wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
 /*list of monsters*/
 
@@ -90,13 +92,18 @@ const TEAM_SELECTIONS = [
 
 teamCreationPopupButton.addEventListener("click", e =>{
         showPopup(teamCreationPopup)
-
 })
+
+/*button given to both popups to close them*/
 
 closeButton.forEach(closeButton => {
     closeButton.addEventListener("click", e => {
         closePopup(closeButton)
     })
+})
+
+continueButton.addEventListener('click', e=> {
+    wait = false
 })
 
 /* buttons that allows you to pick team members in the team creation popup*/
@@ -263,18 +270,15 @@ async function PrintOutput(message)
         await delay(.01);
     }
 
-        console.log("waiting")
-        await delay(.05)
-        continueButton.addEventListener('click', e=> {
-            async () => {
-                // V Must include await
-              await Wait(1000); // Sleep 1000 milliseconds (1 second)
-                console.log('Hi');
-            }
-        })
+    do{
+        await delay(1)
+        console.log("wait")
+    }while(wait = true)
 
 
 }
+
+
 
 function Wait(milliseconds) {
     const date = Date.now();

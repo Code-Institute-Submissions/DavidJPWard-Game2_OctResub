@@ -69,3 +69,14 @@ function selectTeamMember(element){
         console.log("Team full")
     }
 }
+
+
+        console.log("waiting")
+        await delay(.05)
+        continueButton.addEventListener('click', e=> {
+            async () => {
+                // V Must include await
+              await Wait(1000); // Sleep 1000 milliseconds (1 second)
+                console.log('Hi');
+            }
+        })
