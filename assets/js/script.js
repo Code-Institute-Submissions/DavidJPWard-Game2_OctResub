@@ -11,7 +11,8 @@ const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
 const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
 const playerHealthBar = document.querySelector(".player-health-bar")
 const enemyHealthBar = document.querySelector(".enemy-health-bar")
-const output = document.querySelector(".output")
+const firstOutput = document.querySelector(".first-output")
+const secondOutput = document.querySelector(".second-output")
 
 /*buttons*/
 
@@ -30,7 +31,7 @@ let newMonster = null;
 let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
-
+//let isFaster = false;
 
 /*list of monsters*/
 
@@ -121,8 +122,6 @@ removeButton.addEventListener("click", e => {
         rosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png";
         mainPageRosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png"
         playerTeam.pop()
-
-        console.log(playerTeam)
     } else {
         console.log("Team empty")
     }
@@ -152,16 +151,13 @@ swapButtons.forEach(swapButtons => {
 /*dnosdklcnmwpenm*/
 
 function PopulateMoveButtons(){
-    if(activePlayerMonster != null){
+    if(activePlayerMonster != null || activeEnemyMonster != null){
         let i = 0
         moveButtons.forEach(moveButtons => {
             moveButtons.innerHTML = activePlayerMonster.moves[i].name
             if(i < activePlayerMonster.moves.length){
                 moveButtons.addEventListener('click', e => {
                     fired = true;
-
-                    
-                    console.log(activePlayerMonster.name + "s move: " + activePlayerMonster.moves[moveButtons.dataset.slot])
                     TurnCycle(activePlayerMonster.moves[moveButtons.dataset.slot])
                 })
             }
@@ -200,13 +196,12 @@ function createEnemyTeam(){
     for(let i = 0; i < playerTeam.length; i++){
         const randInt = Math.floor(Math.random() * TEAM_SELECTIONS.length)
         newMonster = new Monster(TEAM_SELECTIONS[randInt])
-        console.log(newMonster)
         newMonster.controller = "enemy"
         enemyTeam.push(newMonster)
 
         enemyTeam[i].position = i
     }
-    console.log(enemyTeam)
+
 }
 
 
@@ -247,24 +242,34 @@ function CommenceFight(){
 
     
 
-    PrintOutput(activePlayerMonster.name + " is fighting enemy " + activeEnemyMonster.name)
+    PrintOutput(activePlayerMonster.name + " is fighting enemy " + activeEnemyMonster.name, true)
     PopulateMoveButtons()
 }
 
 
 /*prints out a message to the output box, one letter at a time*/
-async function PrintOutput(message)
+async function PrintOutput(message, isFaster)
 {
     console.log(message)
     wait = true
     let newString = ">"
     let messageToPrint = " "
-    for(let i = 0; i <= message.length; i++)
-    {       
-        messageToPrint = newString + message.charAt(i)
-        newString = messageToPrint
-        output.innerHTML = messageToPrint
-        await delay(.01);
+    if(isFaster == true){
+        for(let i = 0; i <= message.length; i++)
+        {       
+            messageToPrint = newString + message.charAt(i)
+            newString = messageToPrint
+            firstOutput.innerHTML = messageToPrint
+            await delay(.01);
+        }
+    }else{
+        for(let i = 0; i <= message.length; i++)
+        {       
+            messageToPrint = newString + message.charAt(i)
+            newString = messageToPrint
+            secondOutput.innerHTML = messageToPrint
+            await delay(.01);
+        }
     }
 }
 
@@ -288,14 +293,12 @@ function UpdateHealth(){
 
 /*randomly selects a move from the enemys move pool, there is a also a small chance that the 
 enemy monster will swap out*/
-function EnemyMove(){
+function EnemyMove(isFaster){
     let i= Math.floor(Math.random() * 10)
     if(i < 8)
     {
         i = Math.floor(Math.random() * 3)
-        console.log("enemy move slot used: " + i.toString())
-        console.log("corrosponding move in that slot" + activeEnemyMonster.moves[i])
-        activeEnemyMonster.moves[i](activeEnemyMonster, activePlayerMonster)
+        activeEnemyMonster.moves[i](activeEnemyMonster, activePlayerMonster, isFaster)
     }else{
         console.log("swapButtons()")
     }
@@ -305,9 +308,6 @@ function EnemyMove(){
 /*calculates which monster will go first depending both monsters speed stats*/
 function CalculateSpeed(){
     let fasterMonster = null;
-
-    console.log("enemys speed value: " +activeEnemyMonster.speed.toString())
-    console.log("players speed value: " +activePlayerMonster.speed.toString())
 
     if(activePlayerMonster.speed > activeEnemyMonster.speed){
         fasterMonster = activePlayerMonster
@@ -327,9 +327,7 @@ function CalculateSpeed(){
         console.log("enemy faster")
     }
 
-    console.log(fasterMonster.name + " to move first")
-    console.log(fasterMonster)
-    PrintOutput(fasterMonster.controller.toString() + " " + fasterMonster.name + " went first")
+    //PrintOutput(fasterMonster.controller.toString() + " " + fasterMonster.name + " went first", "faster")
     return fasterMonster
 }
 
@@ -354,29 +352,29 @@ function swap(chair){
 speed and then performs that action either first or second depending on how quick they are*/
 function TurnCycle(action){
     if(activePlayerMonster == CalculateSpeed()){
-
-        console.log("player will use: " + action)
-
-        action(activePlayerMonster, activeEnemyMonster)
-
-        console.log("player move completed")
+        action(activePlayerMonster, activeEnemyMonster, true)
         UpdateHealth()
         if(activeEnemyMonster.health>0){
-            EnemyMove()
-
+            EnemyMove(false)
+            UpdateHealth()
+        }else{
+            PrintOutput(activePlayerMonster.controller + "s " + activePlayerMonster.name + " has fainted", false)
+            activePlayerMonster = null;
+            playerMonsterPlaceholder.style.backgroundImage = "url()"
         }
     }
     else{
         console.log("enemy moved")
         console.log(action)
-        EnemyMove()
+        EnemyMove(true)
         UpdateHealth()
         if(activePlayerMonster.health>0){
-
-            console.log("player will use: " + action)
-
-            action(activePlayerMonster, activeEnemyMonster)
-            console.log("player move completed")
+            action(activePlayerMonster, activeEnemyMonster, false)
+            UpdateHealth()
+        }else{
+            PrintOutput(activeEnemyMonster.controller + "s " + activeEnemyMonster.name + " has fainted", false)
+            activeEnemyMonster = null;
+            enemyMonsterPlaceholder.style.backgroundImage = "url()"
         }
     }
 

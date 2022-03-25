@@ -4,72 +4,105 @@ class MonsterDeck{
 
     }
 
-    findTarget(controller, activePlayerMonster, activeEnemyMonster){
-        if(controller == "player"){
-            return activeEnemyMonster
-        }else{
-            return activePlayerMonster
-        }
-    }
 
 
-    Smash(self, target){
-            PrintOutput(self.name + " used smash")
-            target.health--
+    Smash(self, target, isFaster){
+        let damage = 1
+        target.health -= damage
+            PrintOutput(self.controller + "s " + self.name + " used smash, dealing " + damage.toString() + " damage.", isFaster)
+            console.log(self.controller + "s " + 
+            self.name + " at " + self.health.toString() + " using smash, dealing " + 
+            damage.toString() + " damage to " + target.controller + "s " + target.name)
     }
     
-    Grind(self, target){
-        target.health--
-        PrintOutput(self.name + " used grind")
+    Grind(self, target, isFaster){
+        let damage =  1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used grind, dealing " + damage.toString() + " damage.", isFaster)
+    
+        console.log(self.controller + "s " + 
+        self.name + " at " + self.health.toString() + " using grind, dealing " + 
+        damage.toString() + " damage to " + target.controller + "s " + target.name)
     }
 
-    Polyfilla(self, target){
-        PrintOutput(self.name + " used polyfilla")
-        self.health++
+    Polyfilla(self, target,  isFaster){
+        let damage = 1
+        self.health += damage
+        PrintOutput(self.controller + "s " + self.name + " used polyfilla, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + 
+        self.name + " at " + self.health.toString() + " using polyfilla, healing " + 
+        damage.toString() + " health.")
     }
 
-    Spark(self, target){
-        PrintOutput(self.name + " used spark")
-        target.health--
-    }
-
-    ContactLense(self, target){
-        PrintOutput(self.name + " used ContactLense")
-        target.health--
-    }
-
-    Stare(self, target){
-        PrintOutput(self.name + " used Stare")
-        target.health--
-    }
-
-    Slap(self, target){
-        PrintOutput(self.name + " used Slap")
-        target.health--
-    }
-
-    Scratch(self, target){
-
-        PrintOutput(self.name + " used Scratch")
-        target.health--
+    Spark(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used spark, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + 
+        self.name + " at " + self.health.toString() + " using spark, dealing " + 
+        damage.toString() + " damage to " + target.controller + "s " + target.name)
     }
 
 
-    Slice(self, target){
-        PrintOutput(self.name + " used Scratch")
-        target.health--
+    ContactLense(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used ContactLense, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + 
+        self.name + " at " + self.health.toString() + " using contactlense, dealing " + 
+        damage.toString() + " damage to " + target.controller + "s " + target.name)
+    }
+
+    Stare(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Stare, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + 
+        self.name + " at " + self.health.toString() + " using stare, dealing " + 
+        damage.toString() + " damage to " + target.controller + "s " + target.name)
+    }
+
+    Slap(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Slap, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + 
+        self.name + " at " + self.health.toString() + " using slap, dealing " + 
+        damage.toString() + " damage to " + target.controller + "s " + target.name)
+    }
+
+    Scratch(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Scratch, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + 
+        self.name + " at " + self.health.toString() + " using scratch, dealing " + 
+        damage.toString() + " damage to " + target.controller + "s " + target.name)
+    }
+
+
+    Slice(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Scratch, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + self.name + " at " + self.health.toString() + " using slice, dealing " + damage.toString() + " damage to " + target.controller + "s " + target.name)
     }
 
     
-    Sharpen(self, target){
-        PrintOutput(self.name + " used Sharpen")
-        target.health--
+    Sharpen(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Sharpen, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + self.name + " at " + self.health.toString() + " using sharpen, dealing " + damage.toString() + " damage to " + target.controller + "s " + target.name)
     }
 
     
-    RunWithScissors(self, target){
-        PrintOutput(self.name + " is running with scissors")
-        target.health--
+    RunWithScissors(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " is running with scissors, dealing " + damage.toString() + " damage.", isFaster)
+        console.log(self.controller + "s " + self.name + " at " + self.health.toString() + " using playwithsc dealing " + damage.toString() + " damage to " + target.controller + "s " + target.name)
     }
 
 }
+
