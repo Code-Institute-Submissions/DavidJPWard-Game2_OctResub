@@ -1,19 +1,26 @@
 /*elements*/
 
-const teamCreationPopupButton = document.querySelector(".select-team")
+
 const teamCreationPopup = document.querySelector(".team-select-popup")
 const battlePopup = document.querySelector(".battle-popup")
-const battlePopupButton = document.querySelector("#start-fight")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const removeButton = document.querySelector("#remove")
 const rosterDivs = document.querySelectorAll(".team-roster-position")
-const swapButtons = document.querySelectorAll(".swap-button")
-const moveButtons = document.querySelectorAll(".move-button")
+const mainPageRosterDivs = document.querySelectorAll(".team-roster-position-main-page")
 const playerMonsterPlaceholder = document.querySelector(".player-placeholder")
 const enemyMonsterPlaceholder = document.querySelector(".enemy-placeholder")
 const playerHealthBar = document.querySelector(".player-health-bar")
 const enemyHealthBar = document.querySelector(".enemy-health-bar")
 const output = document.querySelector(".output")
+
+/*buttons*/
+
+const closeButton = document.querySelectorAll(".close-button")
+const swapButtons = document.querySelectorAll(".swap-button")
+const moveButtons = document.querySelectorAll(".move-button")
+const battlePopupButton = document.querySelector(".start-fight")
+const teamCreationPopupButton = document.querySelector(".select-team")
+const continueButton = document.querySelector(".continue-button")
 
 /*variables*/
 
@@ -23,6 +30,8 @@ let newMonster = null;
 let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
+let wait = false;
+Wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
 /*list of monsters*/
 
@@ -82,7 +91,13 @@ const TEAM_SELECTIONS = [
 teamCreationPopupButton.addEventListener("click", e =>{
         showPopup(teamCreationPopup)
 
-});
+})
+
+closeButton.forEach(closeButton => {
+    closeButton.addEventListener("click", e => {
+        closePopup(closeButton)
+    })
+})
 
 /* buttons that allows you to pick team members in the team creation popup*/
 
@@ -100,7 +115,7 @@ removeButton.addEventListener("click", e => {
         let i = playerTeam.length - 1
 
         rosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png";
-
+        mainPageRosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png"
         playerTeam.pop()
 
         console.log(playerTeam)
@@ -164,6 +179,7 @@ function selectTeamMember(element){
     for(let i = 0; i < playerTeam.length; i++)
     {
         rosterDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
+        mainPageRosterDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
     }
     } else {
         
@@ -181,10 +197,10 @@ function createEnemyTeam(){
         const randInt = Math.floor(Math.random() * TEAM_SELECTIONS.length)
         newMonster = new Monster(TEAM_SELECTIONS[randInt])
         console.log(newMonster)
+        newMonster.controller = "enemy"
         enemyTeam.push(newMonster)
 
         enemyTeam[i].position = i
-        enemyTeam.controller = "enemy"
     }
     console.log(enemyTeam)
 }
@@ -196,6 +212,12 @@ function showPopup(element){
         element.classList.remove("show")
     } else { !element.classList.contains("show") 
         element.classList.add("show");
+    }
+}
+
+function closePopup(button){
+    if(button.parentNode.classList.contains("show")){
+        button.parentNode.classList.remove("show")
     }
 }
 
@@ -229,6 +251,8 @@ function CommenceFight(){
 /*prints out a message to the output box, one letter at a time*/
 async function PrintOutput(message)
 {
+    console.log(message)
+    wait = true
     let newString = ">"
     let messageToPrint = " "
     for(let i = 0; i <= message.length; i++)
@@ -239,7 +263,27 @@ async function PrintOutput(message)
         await delay(.01);
     }
 
+        console.log("waiting")
+        await delay(.05)
+        continueButton.addEventListener('click', e=> {
+            async () => {
+                // V Must include await
+              await Wait(1000); // Sleep 1000 milliseconds (1 second)
+                console.log('Hi');
+            }
+        })
+
+
 }
+
+function Wait(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+  
 
 /*used by the PrintOutput() function to delay the printing of each chracter in the string*/
 function delay(n){
@@ -248,11 +292,7 @@ function delay(n){
     });
 }
 
-function wait(){
-    return new Promise(function(resolve){
 
-    })
-}
 
 /*updates the health display, called after every move is completed*/
 function UpdateHealth(){
@@ -304,7 +344,7 @@ function CalculateSpeed(){
 
     console.log(fasterMonster.name + " to move first")
     console.log(fasterMonster)
-    PrintOutput(fasterMonster.controller.toString + " " + fasterMonster.name + " went first")
+    PrintOutput(fasterMonster.controller.toString() + " " + fasterMonster.name + " went first")
     return fasterMonster
 }
 
