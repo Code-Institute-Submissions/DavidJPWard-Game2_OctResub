@@ -4,72 +4,83 @@ class MonsterDeck{
 
     }
 
-    findTarget(controller, activePlayerMonster, activeEnemyMonster){
-        if(controller == "player"){
-            return activeEnemyMonster
-        }else{
-            return activePlayerMonster
-        }
-    }
 
 
-    Smash(self, target){
-            PrintOutput(self.name + " used smash")
-            target.health--
+    Smash(self, target, isFaster){
+        let damage = 1
+        target.health -= damage
+            PrintOutput(self.controller + "s " + self.name + " used smash, dealing " + damage.toString() + " damage.", isFaster)
+
     }
     
-    Grind(self, target){
-        target.health--
-        PrintOutput(self.name + " used grind")
+    Grind(self, target, isFaster){
+        let damage =  1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used grind, dealing " + damage.toString() + " damage.", isFaster)
     }
 
-    Polyfilla(self, target){
-        PrintOutput(self.name + " used polyfilla")
-        self.health++
+    Polyfilla(self, target,  isFaster){
+        let damage = 1
+        self.health += damage
+        PrintOutput(self.controller + "s " + self.name + " used polyfilla, dealing " + damage.toString() + " damage.", isFaster)
     }
 
-    Spark(self, target){
-        PrintOutput(self.name + " used spark")
-        target.health--
+    Spark(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used spark, dealing " + damage.toString() + " damage.", isFaster)
     }
 
-    ContactLense(self, target){
-        PrintOutput(self.name + " used ContactLense")
-        target.health--
+    ContactLense(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used ContactLense, dealing " + damage.toString() + " damage.", isFaster)
+
     }
 
-    Stare(self, target){
-        PrintOutput(self.name + " used Stare")
-        target.health--
-    }
-
-    Slap(self, target){
-        PrintOutput(self.name + " used Slap")
-        target.health--
-    }
-
-    Scratch(self, target){
-
-        PrintOutput(self.name + " used Scratch")
+    Stare(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Stare, dealing " + damage.toString() + " damage.", isFaster)
         target.health--
     }
 
+    Slap(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Slap, dealing " + damage.toString() + " damage.", isFaster)
 
-    Slice(self, target){
-        PrintOutput(self.name + " used Scratch")
-        target.health--
+    }
+
+    Scratch(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Scratch, dealing " + damage.toString() + " damage.", isFaster)
+
+    }
+
+
+    Slice(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Scratch, dealing " + damage.toString() + " damage.", isFaster)
+        
     }
 
     
-    Sharpen(self, target){
-        PrintOutput(self.name + " used Sharpen")
-        target.health--
+    Sharpen(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " used Sharpen, dealing " + damage.toString() + " damage.", isFaster)
+
     }
 
     
-    RunWithScissors(self, target){
-        PrintOutput(self.name + " is running with scissors")
-        target.health--
+    RunWithScissors(self, target,  isFaster){
+        let damage = 1
+        target.health -= damage
+        PrintOutput(self.controller + "s " + self.name + " is running with scissors, dealing " + damage.toString() + " damage.", isFaster)
+
     }
 
 }
