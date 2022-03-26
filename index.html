@@ -16,8 +16,9 @@
             <div id="player-score" class="score">Wins: 0</div>
             <div id="enemy-score" class="score">Losses: 0</div>
         </div>
-            <button class="select-team main-page-button">choose team</button>
-            <button class="start-fight main-page-button">FIGHT!</button>
+            <button class="select-team main-page-button">SELECT TEAM</button>
+            <button class="start-fight main-page-button">FIGHT</button>
+            <button class="instructions main-page-button">HOW TO PLAY</button>
             <div class="team-container">
                 <span>Current team:</span>
             <div class="team-roster-main-page">
@@ -33,7 +34,7 @@
     </div>
 
     <div class="team-select-popup">
-        <button class="close-button">X</button>
+        <button class="close-button confirm">CONFIRM</button>
         <div class="team-selection-bar">
             <button class="team-selection" data-monster="blady">blady</button>
             <button class="team-selection" data-monster="blinky">blinky</button>
@@ -52,7 +53,9 @@
     </div>
 
     <div class="battle-popup">
-        <button class="close-button">X</button>
+        <button class="close-button X">X</button>
+        <DIv class="winner-declaration"></DIv>
+        
         <div class="game-window">
             <div class="monster-placeholder player-placeholder"></div>
             <div class="monster-placeholder enemy-placeholder"></div>
@@ -74,10 +77,18 @@
             <button class="move-button" data-slot="3"></button>
             <div class="first-output"></div>
             <div class="second-output"></div>
-            <button class="continue-button">CONTINUE -></button>
         </div>
-        
-    </div>
+    </div>    
+        <div class="instructions-popup">
+            <button class="close-button X">X</button>
+            <h1>How to play...</h1>
+                <p>Select a team from the "select team" menu, you need at least 1 monster to start a fight.</p>
+                <p> each monster has 4 moves, used them to lower the opponents health to 0, you can switch out to another monster at any time so keep an eye out if a fight isnt going as planned</p>
+                <p> if one team has no monsters left, the battle ends and the team with members still alive, win</p>
+                <p>happy fighting!</p>
+        </div>
+
+    
     <script src="/assets/js/monstersDeck.js"></script>
     <script src="/assets/js/monster.js"></script>
     <script src="assets/js/script.js" defer></script>
