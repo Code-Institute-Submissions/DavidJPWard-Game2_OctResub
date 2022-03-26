@@ -7,7 +7,10 @@ class MonsterDeck{
 
 
     Smash(self, target, isFaster){
-        let damage = self.attack - target.defence 
+        let damage = 0
+        console.log("damage " + damage)
+        damage = self.attack - target.defence
+        console.log("damage: " + damage) 
         if(damage < 2){
             damage = 2
         }
@@ -18,7 +21,8 @@ class MonsterDeck{
     }
     
     Grind(self, target, isFaster){
-        let damage = self.attack - target.defence 
+        let damage = 0
+        damage = self.attack - target.defence 
         if(damage < 1){
             damage = 1
         }
@@ -36,7 +40,8 @@ class MonsterDeck{
     }
 
     Spark(self, target,  isFaster){
-        let damage = self.attack - target.defence 
+        let damage = 0
+        damage = self.attack - target.defence 
         if(damage < 1){
             damage = 2
         }
@@ -61,17 +66,21 @@ class MonsterDeck{
     }
 
     Slap(self, target,  isFaster){
-        let damage = (self.attack + 2) - target.defence 
+        let damage = 0
+        damage = (self.attack + 2) - target.defence 
+        console.log(damage)
         if(damage < 1){
             damage = 1
         }
+        console.log("Damage: " + damage)
         target.health -= damage
         PrintOutput(self.controller + "s " + self.name + " used Slap, dealing " + damage.toString() + " damage.", isFaster)
 
     }
 
     Scratch(self, target,  isFaster){
-        let damage = self.attack - (target.defence-2) 
+        let damage = 0
+        damage = self.attack - (target.defence-2) 
         if(damage < 1){
             damage = 1
         }
@@ -81,7 +90,8 @@ class MonsterDeck{
 
 
     Slice(self, target,  isFaster){
-        let damage = self.attack - target.defence 
+        let damage = 0
+        damage = self.attack - target.defence 
         if(damage > 1){
             damage += 2
         }
@@ -97,9 +107,10 @@ class MonsterDeck{
 
     
     RunWithScissors(self, target,  isFaster){
+        let damage = 0
         let chance = Math.floor(Math.random() * 3)
         if(chance > 1){
-            let damage = (self.attack*self.attack) - target.defence 
+             damage = (self.attack*self.attack) - target.defence 
             target.health -= damage
             PrintOutput(self.controller + "s " + self.name + " is running with scissors, dealing " + damage.toString() + " damage.", isFaster)
         }

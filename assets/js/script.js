@@ -3,6 +3,7 @@
 
 const teamCreationPopup = document.querySelector(".team-select-popup")
 const battlePopup = document.querySelector(".battle-popup")
+const instructionsPopup = document.querySelector(".instructions-popup")
 const teamSelectionButtons = document.querySelectorAll('.team-selection')
 const removeButton = document.querySelector("#remove")
 const rosterDivs = document.querySelectorAll(".team-roster-position")
@@ -24,13 +25,14 @@ const swapButtons = document.querySelectorAll(".swap-button")
 let moveButtons = document.querySelectorAll(".move-button")
 const battlePopupButton = document.querySelector(".start-fight")
 const teamCreationPopupButton = document.querySelector(".select-team")
+const instructionPopupButton = document.querySelector(".instructions")
 
 /*variables*/
 let wins = 0;
 let losses = 0
-const playerTeam = [];
-const playerTeamStore = [];
-const enemyTeam = [];
+let playerTeam = [];
+let playerTeamStore = [];
+let enemyTeam = [];
 let newMonster = null;
 let activePlayerMonster = null;
 let activeEnemyMonster = null;
@@ -65,7 +67,7 @@ const TEAM_SELECTIONS = [
         controller: null,
         position: null,
         attack: 6,
-        defense: 1,
+        defence: 1,
         speed: 4,
         health: 8,
 
@@ -104,6 +106,12 @@ teamCreationPopupButton.addEventListener("click", e =>{
         showPopup(teamCreationPopup)
 })
 
+/*button that opens the instructions popup*/
+
+instructionPopupButton.addEventListener('click', e => {
+    showPopup(instructionsPopup)
+})
+
 /*button given to both popups to close them*/
 
 closeButton.forEach(closeButton => {
@@ -140,11 +148,11 @@ removeButton.addEventListener("click", e => {
 
 battlePopupButton.addEventListener('click', e => { 
     if(playerTeamStore.length > 0){
-
+        playerTeam = [];
         setup()
         showPopup(battlePopup)
     }else{
-        console.log("you need someone on your team")
+        alert("you need someone on your team")
     }
 
 })
@@ -159,9 +167,9 @@ swapButtons.forEach(swapButtons => {
     })
 })
 
-/*dnosdklcnmwpenm*/
-
-
+/*populates the move buttons of the scene with the active player monsters moves
+then adds an event handler to pass that action to the turnCycle() allowing the 
+layer to perform actions*/
 
 function PopulateMoveButtons(){
     if(activePlayerMonster != null || activeEnemyMonster != null){
@@ -178,6 +186,8 @@ function PopulateMoveButtons(){
         })
     }
 }
+
+/*depopulates the moveButtons as to not have duplicate handlers for each button*/
 
 function depopulateMoveButtons(){
     moveButtons.forEach(moveButton => {
@@ -207,9 +217,6 @@ function selectTeamMember(element){
     }
 }
 
-function resetTeam(){
-    tem = player
-}
 
 
 /*on the start of a battle this function checks the number of monsters in the player 
@@ -238,6 +245,8 @@ function showPopup(element){
     }
 }
 
+
+/*this function removes the show class, rendering the popup invisible*/
 function closePopup(button){
     if(button.parentNode.classList.contains("show")){
         button.parentNode.classList.remove("show")
@@ -253,13 +262,17 @@ function closePopup(button){
     -the opening messgae in the output box
     -calls the populateButtons method*/
 function setup(){
-    for(let i = 0; i < playerTeamStore.length; i++){
-        playerTeam[i] = playerTeamStore[i]
-    }
+    console.log(playerTeamStore)
+
+        playerTeam = playerTeamStore.slice(0,playerTeamStore.length)
+
+    
     winnerBanner.innerHTML = ""
     createEnemyTeam()
+    
     activePlayerMonster = playerTeam[0]
     activeEnemyMonster = enemyTeam[0]
+    UpdateHealth()
     swapButtons.forEach(e => {
         e.style.opacity = 1
     })
@@ -280,7 +293,8 @@ function setup(){
 }
 
 
-/*prints out a message to the output box, one letter at a time*/
+/*prints out a message to the sperate output boxes, one letter at a time, the faster monster
+is passed in and printed out in the top box*/
 async function PrintOutput(message, isFaster)
 {
     console.log(message)
@@ -365,7 +379,7 @@ function CalculateSpeed(){
 }
 
 
-
+/*handles the swap function for both player and enemy*/
 function swap(chair, controller){
     if(controller == "player"){
         chair-- 
@@ -484,6 +498,9 @@ async function TurnCycle(action){
 
 }
 
+
+/*handles whats happens when a monster has run out of health, a check is made when a player
+monster has died, whether they have any more monsters, if no then they lose*/
 function fainted(faintedMonster){
     console.log(faintedMonster)
     PrintOutput(faintedMonster.controller + "s " + faintedMonster.name + " has fainted", false)

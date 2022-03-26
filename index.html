@@ -16,8 +16,9 @@
             <div id="player-score" class="score">Wins: 0</div>
             <div id="enemy-score" class="score">Losses: 0</div>
         </div>
-            <button class="select-team main-page-button">choose team</button>
-            <button class="start-fight main-page-button">FIGHT!</button>
+            <button class="select-team main-page-button">SELECT TEAM</button>
+            <button class="start-fight main-page-button">FIGHT</button>
+            <button class="instructions main-page-button">HOW TO PLAY</button>
             <div class="team-container">
                 <span>Current team:</span>
             <div class="team-roster-main-page">
@@ -77,8 +78,17 @@
             <div class="first-output"></div>
             <div class="second-output"></div>
         </div>
-        
-    </div>
+    </div>    
+        <div class="instructions-popup">
+            <button class="close-button X">X</button>
+            <h1>How to play...</h1>
+                <p>Select a team from the "select team" menu, you need at least 1 monster to start a fight.</p>
+                <p> each monster has 4 moves, used them to lower the opponents health to 0, you can switch out to another monster at any time so keep an eye out if a fight isnt going as planned</p>
+                <p> if one team has no monsters left, the battle ends and the team with members still alive, win</p>
+                <p>happy fighting!</p>
+        </div>
+
+    
     <script src="/assets/js/monstersDeck.js"></script>
     <script src="/assets/js/monster.js"></script>
     <script src="assets/js/script.js" defer></script>

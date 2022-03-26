@@ -22,7 +22,7 @@ body{
 }
 
 .team-container{
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .team-roster-main-page{
@@ -33,15 +33,15 @@ body{
 
 .main-page-button{
 
-    height: 30px;
-    width: 200px;
+    height: 60px;
+    width: 250px;
     background: none;
     border: none;
     outline: none;
     cursor: pointer;
     font-size: 2rem;
     transition: 100ms;
-    margin: 20px;
+    margin: 5px;
 }
 
 .team-roster-position-main-page{
@@ -92,7 +92,7 @@ body{
     height: 600px;
     position: fixed;
     top: 10%;
-    left:0;
+    left:20%;
     background-color: rgb(30, 150, 30);
     opacity:0%;
     z-index: -1;
@@ -100,12 +100,25 @@ body{
     
 }
 
+.instructions-popup{
+    width: 800px;
+    height: 600px;
+    position: fixed;
+    top: 10%;
+    left:20%;
+    background-color: rgb(187, 207, 187);
+    opacity:0%;
+    z-index: -1;
+    text-align: center;
+    align-items: center;
+}
+
 .battle-popup{
     width: 800px;
     height: 600px;
     position: fixed;
     top: 10%;
-    left: 0;
+    left: 20%;
     background-color: rgb(78, 82, 133);
     opacity:0%;
     z-index: -1;
@@ -267,5 +280,14 @@ body{
     top: 100px;
     left: 150px;
     z-index: 2;
+    
 
+}
+
+.instructions-popup p{
+    font-size: 20px;
+    width: 500px;
+    margin-left: 150px;
+    text-align: center;
+    position: relative;
 }
