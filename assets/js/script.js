@@ -13,23 +13,29 @@ const playerHealthBar = document.querySelector(".player-health-bar")
 const enemyHealthBar = document.querySelector(".enemy-health-bar")
 const firstOutput = document.querySelector(".first-output")
 const secondOutput = document.querySelector(".second-output")
+const winnerBanner = document.querySelector(".winner-declaration")
+const playerScore = document.querySelector("#player-score")
+const enemyScore = document.querySelector("#enemy-score")
 
 /*buttons*/
 
 const closeButton = document.querySelectorAll(".close-button")
 const swapButtons = document.querySelectorAll(".swap-button")
-const moveButtons = document.querySelectorAll(".move-button")
+let moveButtons = document.querySelectorAll(".move-button")
 const battlePopupButton = document.querySelector(".start-fight")
 const teamCreationPopupButton = document.querySelector(".select-team")
 
 /*variables*/
-
+let wins = 0;
+let losses = 0
 const playerTeam = [];
+const playerTeamStore = [];
 const enemyTeam = [];
 let newMonster = null;
 let activePlayerMonster = null;
 let activeEnemyMonster = null;
 const moveList = new MonsterDeck();
+
 //let isFaster = false;
 
 /*list of monsters*/
@@ -42,6 +48,8 @@ const TEAM_SELECTIONS = [
         controller: null,
         position: null,
         speed: 1,
+        attack: 2,
+        defence: 4,
         health: 15,
         moves: [
             moveList.Smash,
@@ -56,8 +64,11 @@ const TEAM_SELECTIONS = [
         icon: "/assets/images/blinky-icon.png",
         controller: null,
         position: null,
-        health: 8,
+        attack: 6,
+        defense: 1,
         speed: 4,
+        health: 8,
+
         moves: [
             moveList.Stare,
             moveList.Slap,
@@ -71,6 +82,8 @@ const TEAM_SELECTIONS = [
         icon: "assets/images/blady-icon.png",
         controller: null,
         position: null,
+        attack: 4,
+        defence: 3,
         health: 10,
         speed: 3,
         moves: [
@@ -126,9 +139,9 @@ removeButton.addEventListener("click", e => {
 /*button thats starts fight if number of team members is greater than 1*/
 
 battlePopupButton.addEventListener('click', e => { 
-    if(playerTeam.length > 0){
-        createEnemyTeam()
-        CommenceFight()
+    if(playerTeamStore.length > 0){
+
+        setup()
         showPopup(battlePopup)
     }else{
         console.log("you need someone on your team")
@@ -148,6 +161,8 @@ swapButtons.forEach(swapButtons => {
 
 /*dnosdklcnmwpenm*/
 
+
+
 function PopulateMoveButtons(){
     if(activePlayerMonster != null || activeEnemyMonster != null){
         let i = 0
@@ -164,25 +179,36 @@ function PopulateMoveButtons(){
     }
 }
 
+function depopulateMoveButtons(){
+    moveButtons.forEach(moveButton => {
+        moveButton.replaceWith(moveButton.cloneNode(true))
+    })
+    moveButtons = document.querySelectorAll(".move-button")
+}
+
 /*upon selection of a monster in the team creation popup, this function checks if 
 there is space avialable on the team and then adds that monsterto the team */
 function selectTeamMember(element){
     newMonster = new Monster(TEAM_SELECTIONS.find(monster => monster.name === element.dataset.monster))
-    newMonster.position = playerTeam.length
+    newMonster.position = playerTeamStore.length
     newMonster.controller = "player"
 
-    if(playerTeam.length < 6) {
-    playerTeam.push(newMonster)
+    if(playerTeamStore.length < 6) {
+    playerTeamStore.push(newMonster)
     
-    for(let i = 0; i < playerTeam.length; i++)
+    for(let i = 0; i < playerTeamStore.length; i++)
     {
-        rosterDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
-        mainPageRosterDivs[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")";
+        rosterDivs[i].style.backgroundImage = "url(" + playerTeamStore[i].icon + ")";
+        mainPageRosterDivs[i].style.backgroundImage = "url(" + playerTeamStore[i].icon + ")";
     }
     } else {
         
         console.log("Team full")
     }
+}
+
+function resetTeam(){
+    tem = player
 }
 
 
@@ -207,7 +233,7 @@ function createEnemyTeam(){
 function showPopup(element){
     if(element.classList.contains("show")){ 
         element.classList.remove("show")
-    } else { !element.classList.contains("show") 
+    } else{!element.classList.contains("show")
         element.classList.add("show");
     }
 }
@@ -226,21 +252,30 @@ function closePopup(button){
     -starting health for both monsters
     -the opening messgae in the output box
     -calls the populateButtons method*/
-function CommenceFight(){
-
+function setup(){
+    for(let i = 0; i < playerTeamStore.length; i++){
+        playerTeam[i] = playerTeamStore[i]
+    }
+    winnerBanner.innerHTML = ""
+    createEnemyTeam()
     activePlayerMonster = playerTeam[0]
     activeEnemyMonster = enemyTeam[0]
+    swapButtons.forEach(e => {
+        e.style.opacity = 1
+    })
+
     for(let i = 0; i < 6; i++){
         if(playerTeam[i] != null)
             swapButtons[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")"
+            
     }
     playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
     enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
     UpdateHealth()
-
-    
-
     PrintOutput(activePlayerMonster.name + " is fighting enemy " + activeEnemyMonster.name, true)
+
+    depopulateMoveButtons()
+
     PopulateMoveButtons()
 }
 
@@ -258,7 +293,7 @@ async function PrintOutput(message, isFaster)
             messageToPrint = newString + message.charAt(i)
             newString = messageToPrint
             firstOutput.innerHTML = messageToPrint
-            await delay(.01);
+            await delay(.001);
         }
     }else{
         for(let i = 0; i <= message.length; i++)
@@ -292,13 +327,13 @@ function UpdateHealth(){
 /*randomly selects a move from the enemys move pool, there is a also a small chance that the 
 enemy monster will swap out*/
 function EnemyMove(isFaster){
-    let i= Math.floor(Math.random() * 10)
-    if(i < 9)
+    let i= Math.floor(Math.random() * 30)
+    if(i < 29)
     {
-        i = Math.floor(Math.random() * 3)
+        i = Math.floor(Math.random() * 4)
         activeEnemyMonster.moves[i](activeEnemyMonster, activePlayerMonster, isFaster)
     }else{
-        console.log("swapButtons()")
+        swap(0,"enemy")
     }
 }
 
@@ -333,8 +368,7 @@ function CalculateSpeed(){
 
 function swap(chair, controller){
     if(controller == "player"){
-        chair--
-        
+        chair-- 
         if(playerTeam.length >= chair && activePlayerMonster != playerTeam[chair] && playerTeam[chair].health> 0){
             console.log("seat number: " + chair.toString())
             console.log("monster at that chair: " + playerTeam[chair].name)
@@ -342,10 +376,47 @@ function swap(chair, controller){
             playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
             UpdateHealth()
             PrintOutput("player swapped out to "+ activePlayerMonster.name)
+            depopulateMoveButtons()
             PopulateMoveButtons()
+            TurnCycle
         }
     }else if(controller = "enemy"){
-        rand
+        let anyOneLeftAlive = true
+        let enemyFound = false
+        console.log("test for alive enemy team members")
+        for(let i = 0; i < enemyTeam.length; i++){
+            console.log(i.toString())
+            if(enemyTeam[i].health > 0)
+            {
+                anyOneLeftAlive = true
+                break
+            }
+            else{
+                anyOneLeftAlive = false
+            }
+        }
+
+        if(anyOneLeftAlive == false)
+        {
+            winnerBanner.innerHTML="YOU WIN"
+            wins++
+            playerScore.innerHTML = "Wins: " + wins.toString()
+        }
+        else{
+            do{
+                let index = Math.floor(Math.random() * enemyTeam.length)
+                if(enemyTeam[index].health > 0)
+                    {
+                        activeEnemyMonster = enemyTeam[index]
+                        enemyFound = true
+                    }
+            }while(enemyFound == false)
+
+            enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
+            UpdateHealth()
+        }
+        
+
     }
 }
 
@@ -357,41 +428,54 @@ async function TurnCycle(action){
     console.log("NEW TURN--------------------")
     //if player is faster
     if(activePlayerMonster == CalculateSpeed()){
+        console.log("speed found")
         action(activePlayerMonster, activeEnemyMonster, true)
         UpdateHealth()
+        console.log("faster player action made")
         //if enemy is not dead
-        if(activeEnemyMonster.health>0){
+        if(activeEnemyMonster.health > 0){
             EnemyMove(false)
+            console.log("slower enemy action made")
             UpdateHealth()
             //if player is dead
             if(activePlayerMonster.health <= 0){
+                console.log("faster player monster died")
                 console.log(activePlayerMonster)
                 fainted(activePlayerMonster)
                 
             }
         //if enemy is dead
         }else{
+            console.log("slower enemy monster died")
             console.log(activeEnemyMonster)
             fainted(activeEnemyMonster)
-
+            await delay(1)
+            swap(0,"enemy")
         }
-    }
-    else{
+        
+    }else{
+
         //if player is slower
-        if(activePlayerMonster.health > 0 || activeEnemyMonster > 0){
-        EnemyMove(true)
-        UpdateHealth()
-        //if player is not dead
-        if(activePlayerMonster.health>0){
-            action(activePlayerMonster, activeEnemyMonster, false)
+        if(activePlayerMonster.health > 0 && activeEnemyMonster.health > 0){
+            EnemyMove(true)
+            console.log("faster enemy action made")
             UpdateHealth()
-            //if enemy is dead
-            if(activeEnemyMonster.health <= 0){
-                console.log(activePlayerMonster)
-                fainted(activePlayerMonster)
+        //if player is not dead
+            if(activePlayerMonster.health > 0){
+                action(activePlayerMonster, activeEnemyMonster, false)
+                console.log("slower player action made")
+                UpdateHealth()
+                //if enemy is dead
+                if(activeEnemyMonster.health <= 0){
+                    console.log("faster enemy died")
+                    console.log(activeEnemyMonster)
+                    fainted(activeEnemyMonster)
+                    await delay(1)
+                    swap(0,"enemy")
             }
         // if player is dead
         }else{
+            console.log("slower player died")
             console.log(activePlayerMonster)
             fainted(activePlayerMonster)
         }
@@ -408,10 +492,33 @@ function fainted(faintedMonster){
 
         playerMonsterPlaceholder.style.backgroundImage = "url()"
         swapButtons[faintedMonster.position].style.opacity = 0.2
+        UpdateHealth()
+        let anyOneLeftAlive = true
+        console.log("test for alive team member")
+        for(let i = 0; i < playerTeam.length; i++){
+            console.log(i.toString())
+            if(playerTeam[i].health > 0)
+            {
+                anyOneLeftAlive = true
+                console.log("available members")
+                break
+            }
+            else{
+                anyOneLeftAlive = false
+            }
+        }
+
+        if(anyOneLeftAlive == false)
+        {
+            winnerBanner.innerHTML = "YOU LOSE"
+            losses++
+            enemyScore.innerHTML = "Losses " + losses.toString()
+        }
 
     }else if(faintedMonster.controller == "enemy"){
 
         enemyMonsterPlaceholder.style.backgroundImage = "url()"
+        UpdateHealth()
     }
 
 }
