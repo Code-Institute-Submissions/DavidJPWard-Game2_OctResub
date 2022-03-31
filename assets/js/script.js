@@ -45,8 +45,8 @@ const moveList = new MonsterDeck();
 const TEAM_SELECTIONS = [
     {
         name: "bruk",
-        sprite: "/assets/images/bruk-sprite.png",
-        icon: "/assets/images/bruk-icon.png",
+        sprite: "assets/images/bruk-sprite.png",
+        icon: "assets/images/bruk-icon.png",
         controller: null,
         position: null,
         speed: 1,
@@ -62,8 +62,8 @@ const TEAM_SELECTIONS = [
     },
     {
         name: "blinky",
-        sprite: "/assets/images/blinky-sprite.png",
-        icon: "/assets/images/blinky-icon.png",
+        sprite: "assets/images/blinky-sprite.png",
+        icon: "assets/images/blinky-icon.png",
         controller: null,
         position: null,
         attack: 6,
@@ -80,7 +80,7 @@ const TEAM_SELECTIONS = [
     },
     {
         name: "blady",
-        sprite: "/assets/images/blady-sprite.png",
+        sprite: "assets/images/blady-sprite.png",
         icon: "assets/images/blady-icon.png",
         controller: null,
         position: null,
@@ -136,8 +136,8 @@ removeButton.addEventListener("click", e => {
     if(playerTeam.length >= 1) {
         let i = playerTeam.length - 1
 
-        rosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png";
-        mainPageRosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png"
+        rosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png";
+        mainPageRosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png"
         playerTeam.pop()
     } else {
         console.log("Team empty")
