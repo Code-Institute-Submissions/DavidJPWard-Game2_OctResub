@@ -1,108 +1,45 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+(it is an hour before submission, i wasnt aware i needed to write a readMe file, while being breif it is at least concise)
 
-Welcome USER_NAME,
+JOKEMON
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+a battle simulator that allow you to pick a team and fight against and computer ai.
+each monster has 4 moves with various effects, the player can also swap out monsters in battle.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
 
-## Gitpod Reminders
+there are 3 current monsters in the game, but the code has been made so that adding new monsters
+is simple
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+EXISTING FEATURES
 
-`python3 -m http.server`
+-Team selector
 
-A blue button should appear to click: _Make Public_,
+you may select your team from the pool of monsters in the select team tab, you can have a maximum
+or 6 monsters on a team, with any number of duplicates so if you have a favourite monster, pick 6
+of them. you can see your current team on the main page, so you can double check before entering 
+battle
 
-Another blue button should appear to click: _Open Browser_.
+-Fighting
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+with a team selected you may eneter battle. to fight, pick a move, then the speed is calculated 
+to decide which monster goes first, they then attack, if the other monster is still kicking, they
+then move, and the game checks if the first monster is alive, this carrys on til one faints and
+is replaced with another monster is one is availble, if not the game is over and the player with 
+members left wins.
 
-A blue button should appear to click: _Make Public_,
+-score tracker
 
-Another blue button should appear to click: _Open Browser_.
+the game dynamically keeps track of the wins and losses of the player
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
 
-To log into the Heroku toolbelt CLI:
+TESTING
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+i have been testing solely with player testing, if i find and error, i locate it and fix it.
+saying this, there has been alot of bugs, mainly logical errors which have been tricky to track down
+but very simple to fix. there are still a few logical errors, you can input moves while your monster
+is fainted which is not ideal, and on occasion is a monsters health drops below 0 they do not faint.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+CREDITS
 
-------
+made the sprites and icons myself, help from various youtubes videos, mainly this 
+one -> https://www.youtube.com/watch?v=1yS-JV4fWqY, 
 
-## Release History
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
-
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
-
-**July 2 2021:** Remove extensions that are not available in Open VSX.
-
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
-
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
-
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
-
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
