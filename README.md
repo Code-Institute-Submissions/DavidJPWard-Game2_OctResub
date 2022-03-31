@@ -1,3 +1,4 @@
+(it is an hour before submission, i wasnt aware i needed to write a readMe file, while being breif it is at least concise)
 
 JOKEMON
 
