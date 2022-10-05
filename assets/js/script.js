@@ -1,5 +1,5 @@
-/*elements*/
 
+/*elements*/
 
 const teamCreationPopup = document.querySelector(".team-select-popup")
 const battlePopup = document.querySelector(".battle-popup")
@@ -133,12 +133,13 @@ teamSelectionButtons.forEach(teamSelectionButtons => {
 /* button to remove a member from your team in the team creation popup*/
 
 removeButton.addEventListener("click", e => {
-    if(playerTeam.length >= 1) {
+    console.log(rosterDivs)
+    if(playerTeamStore.length >= 1) {
         let i = playerTeam.length - 1
-
         rosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png";
         mainPageRosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png"
-        playerTeam.pop()
+        playerTeamStore.pop()
+        console.log(playerTeamStore)
     } else {
         console.log("Team empty")
     }
@@ -208,6 +209,7 @@ function selectTeamMember(element){
     
     for(let i = 0; i < playerTeamStore.length; i++)
     {
+        console.log(rosterDivs)
         rosterDivs[i].style.backgroundImage = "url(" + playerTeamStore[i].icon + ")";
         mainPageRosterDivs[i].style.backgroundImage = "url(" + playerTeamStore[i].icon + ")";
     }
@@ -215,6 +217,8 @@ function selectTeamMember(element){
         
         console.log("Team full")
     }
+    console.log(playerTeam)
+    console.log(playerTeamStore)
 }
 
 
