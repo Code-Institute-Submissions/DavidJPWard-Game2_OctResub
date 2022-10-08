@@ -8,7 +8,7 @@ There are 3 current monsters in the game, but the code has been implemented so t
  
 ### Home Page
  
-![homepage](readMefiles\readmefilesp2\title-page.png)
+![homepage](assets\images\title-page.png)
  
 - This is the landing page for the game containing links to the other pages of the game
 - At the top of the page you have a counter for the scores of your current session.
@@ -16,7 +16,7 @@ There are 3 current monsters in the game, but the code has been implemented so t
  
 ### Team selector
  
-![team-selector](readMefiles\readmefilesp2\team-select.png)
+![team-selector](assets\images\team-select.png)
  
 - you may select your team from the pool of monsters in the select team tab
 - you can have a maximum or 6 monsters on a team, with any number of duplicates.
@@ -24,7 +24,7 @@ There are 3 current monsters in the game, but the code has been implemented so t
  
 ### Fight screen
  
-![fight-screen](readMefiles\readmefilesp2\battle.png)
+![fight-screen](assets\images\battle.png)
  
 with a team selected you may enter battle. to fight, pick a move, then the speed is calculated
 to decide which monster goes first, they then attack, if the other monster is still alive, they
@@ -34,7 +34,7 @@ members left wins.
  
 ### how to play
  
-![how-to-play](readMefiles\readmefilesp2\instructions.png)
+![how-to-play](assets\images\instructions.png)
  
 if a player is confused on how to play then they can check this helpful pop-up on the main menu
  
@@ -52,17 +52,17 @@ i've run my code through various validators to check the state of my code
 - html
 Only two errors here are regarding my sections not including headers. I have used section in this case as a way to differentiate between my separate pop-ups so adding a header is not applicable
  
-![html-check](readMefiles\readmefilesp2\html check.png)
+![html-check](assets\images\html check.png)
  
 - css
 no errors
  
-![css-check](readMefiles\readmefilesp2\ccs check.png)
+![css-check](assets\images\ccs check.png)
  
 - js
 there are various errors here however they are essentially the same two errors, one is says that i am missing a semicolon, however that is not imperative for the code to run, and the second talks about versions however i'm running the latest version of javascript so it doesn't apply
  
-![js-check](readMefiles\readmefilesp2\js check.png)
+![js-check](assets\images\js check.png)
  
 ### Manual Testing
  
