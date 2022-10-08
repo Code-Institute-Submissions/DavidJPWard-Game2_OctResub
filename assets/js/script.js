@@ -136,8 +136,8 @@ removeButton.addEventListener("click", e => {
 
     if(playerTeamStore.length >= 1) {
         let i = playerTeamStore.length - 1
-        rosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png";
-        mainPageRosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png"
+        rosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png";
+        mainPageRosterDivs[i].style.backgroundImage = "url(/assets/images/empty-icon.png"
         playerTeamStore.pop()
     } else {
         console.log("Team empty")
@@ -297,7 +297,7 @@ function setup(){
         if(playerTeam[i] != null)
             swapButtons[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")"
         else
-            swapButtons[i].style.backgroundImage = "url(assets/images/empty-icon.png"
+            swapButtons[i].style.backgroundImage = "url(/assets/images/empty-icon.png"
     }
     playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
     enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
