@@ -52,17 +52,17 @@ i've run my code through various validators to check the state of my code
 - html
 Only two errors here are regarding my sections not including headers. I have used section in this case as a way to differentiate between my separate pop-ups so adding a header is not applicable
  
-![html-check](assets\images\html check.png)
+![html-check](assets\images\html-check.png)
  
 - css
 no errors
  
-![css-check](assets\images\ccs check.png)
+![css-check](assets\images\ccs-check.png)
  
 - js
 there are various errors here however they are essentially the same two errors, one is says that i am missing a semicolon, however that is not imperative for the code to run, and the second talks about versions however i'm running the latest version of javascript so it doesn't apply
  
-![js-check](assets\images\js check.png)
+![js-check](assets\images\js-check.png)
  
 ### Manual Testing
  
