@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Abel&family=Cabin+Sketch&family=Lexend+Peta:wght@100&family=Montserrat:wght@200&family=Red+Hat+Mono:wght@300&display=swap" rel="stylesheet"> 
 </head>
 <body>
-    <div id="page-layout">
+    <header id="page-layout">
         <h1 id="title">JOKEMON</h1>
         <div id="score-board">
             <div id="player-score" class="score">Wins: 0</div>
@@ -31,9 +31,9 @@
                 <div class="team-roster-position-main-page"></div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="team-select-popup">
+    <section class="team-select-popup">
         <button class="close-button confirm">CONFIRM</button>
         <div class="team-selection-bar">
             <button class="team-selection" data-monster="blady">blady</button>
@@ -41,18 +41,23 @@
             <button class="team-selection" data-monster="bruk">bruk</button>
         </div>
         <div class="team-roster">
-            <div id="position1" class="team-roster-position"></div>
-            <div id="position2" class="team-roster-position"></div>
-            <div id="position3" class="team-roster-position"></div>
-            <div id="position4" class="team-roster-position"></div>
-            <div id="position5" class="team-roster-position"></div>
-            <div id="position6" class="team-roster-position"></div>
-
+            <div class="split">
+                <div id="position1" class="team-roster-position"></div>
+                <div id="position2" class="team-roster-position"></div>
+                <div id="position3" class="team-roster-position"></div>
+            </div>
+            <div class="split">
+                <div id="position4" class="team-roster-position"></div>
+                <div id="position5" class="team-roster-position"></div>
+                <div id="position6" class="team-roster-position"></div>
+            </div>
+        </div>
+        <div class="remove-container">
             <button id="remove"> Remove  </button>
         </div>
-    </div>
+    </section>
 
-    <div class="battle-popup">
+    <section class="battle-popup">
         <button class="close-button X">X</button>
         <DIv class="winner-declaration"></DIv>
         
@@ -78,19 +83,24 @@
             <div class="first-output"></div>
             <div class="second-output"></div>
         </div>
-    </div>    
-        <div class="instructions-popup">
+    </section>    
+    <section class="instructions-popup">
             <button class="close-button X">X</button>
-            <h1>How to play...</h1>
+            <h2>How to play...</h2>
                 <p>Select a team from the "select team" menu, you need at least 1 monster to start a fight.</p>
                 <p> each monster has 4 moves, used them to lower the opponents health to 0, you can switch out to another monster at any time so keep an eye out if a fight isnt going as planned</p>
                 <p> if one team has no monsters left, the battle ends and the team with members still alive, win</p>
                 <p>happy fighting!</p>
-        </div>
+    </section>
+
 
     
     <script src="assets/js/monstersDeck.js"></script>
     <script src="assets/js/monster.js"></script>
-    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/script.js"></script>
+    <footer id="footer">
+        copyright 2001
+    </footer>
 </body>
+
 </html>

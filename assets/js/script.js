@@ -133,13 +133,12 @@ teamSelectionButtons.forEach(teamSelectionButtons => {
 /* button to remove a member from your team in the team creation popup*/
 
 removeButton.addEventListener("click", e => {
-    console.log(rosterDivs)
+
     if(playerTeamStore.length >= 1) {
-        let i = playerTeam.length - 1
+        let i = playerTeamStore.length - 1
         rosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png";
         mainPageRosterDivs[i].style.backgroundImage = "url(assets/images/empty-icon.png"
         playerTeamStore.pop()
-        console.log(playerTeamStore)
     } else {
         console.log("Team empty")
     }
@@ -174,25 +173,32 @@ layer to perform actions*/
 
 function PopulateMoveButtons(){
     if(activePlayerMonster != null || activeEnemyMonster != null){
-        let i = 0
-        moveButtons.forEach(moveButtons => {
-            moveButtons.innerHTML = activePlayerMonster.moves[i].name
-            if(i < activePlayerMonster.moves.length){
-                moveButtons.addEventListener('click', e => {
-                    console.log(activePlayerMonster.moves[moveButtons.dataset.slot])
-                    TurnCycle(activePlayerMonster.moves[moveButtons.dataset.slot])
-                })
-            }
-            i++
-        })
+        console.log("yes1")
+        if(activePlayerMonster.health > 1 || activeEnemyMonster.health > 1){
+            console.log("yes2")
+            let i = 0
+            moveButtons.forEach(moveButtons => {
+                moveButtons.innerHTML = activePlayerMonster.moves[i].name
+                if(i < activePlayerMonster.moves.length){
+                    moveButtons.addEventListener('click', e => {
+                        console.log(activePlayerMonster.moves[moveButtons.dataset.slot])
+                        TurnCycle(activePlayerMonster.moves[moveButtons.dataset.slot])
+                    })
+                }
+                i++
+            })
+        }
     }
 }
+
+
 
 /*depopulates the moveButtons as to not have duplicate handlers for each button*/
 
 function depopulateMoveButtons(){
     moveButtons.forEach(moveButton => {
         moveButton.replaceWith(moveButton.cloneNode(true))
+        moveButtons.innerHTML = " "
     })
     moveButtons = document.querySelectorAll(".move-button")
 }
@@ -209,7 +215,6 @@ function selectTeamMember(element){
     
     for(let i = 0; i < playerTeamStore.length; i++)
     {
-        console.log(rosterDivs)
         rosterDivs[i].style.backgroundImage = "url(" + playerTeamStore[i].icon + ")";
         mainPageRosterDivs[i].style.backgroundImage = "url(" + playerTeamStore[i].icon + ")";
     }
@@ -266,9 +271,16 @@ function closePopup(button){
     -the opening messgae in the output box
     -calls the populateButtons method*/
 function setup(){
-    console.log(playerTeamStore)
+    //playerTeam = playerTeamStore.clone()
+    playerTeam = playerTeamStore.map(a => {return {...a}})
 
-        playerTeam = playerTeamStore.slice(0,playerTeamStore.length)
+    //playerTeamStore.slice(0,playerTeamStore.length)
+    console.log("playerTeamStore" + playerTeamStore)
+    console.log(playerTeamStore)
+    console.log("playerTeam" + playerTeam)
+    console.log(playerTeam)
+
+    
 
     
     winnerBanner.innerHTML = ""
@@ -284,7 +296,8 @@ function setup(){
     for(let i = 0; i < 6; i++){
         if(playerTeam[i] != null)
             swapButtons[i].style.backgroundImage = "url(" + playerTeam[i].icon + ")"
-            
+        else
+            swapButtons[i].style.backgroundImage = "url(assets/images/empty-icon.png"
     }
     playerMonsterPlaceholder.style.backgroundImage = "url(" + activePlayerMonster.sprite + ")"
     enemyMonsterPlaceholder.style.backgroundImage = "url(" + activeEnemyMonster.sprite + ")"
@@ -445,6 +458,7 @@ speed and then performs that action either first or second depending on how quic
 async function TurnCycle(action){
     console.log("NEW TURN--------------------")
     //if player is faster
+
     if(activePlayerMonster == CalculateSpeed()){
         console.log("speed found")
         action(activePlayerMonster, activeEnemyMonster, true)
@@ -460,6 +474,7 @@ async function TurnCycle(action){
                 console.log("faster player monster died")
                 console.log(activePlayerMonster)
                 fainted(activePlayerMonster)
+                //depopulateMoveButtons()
                 
             }
         //if enemy is dead
@@ -506,6 +521,7 @@ async function TurnCycle(action){
 /*handles whats happens when a monster has run out of health, a check is made when a player
 monster has died, whether they have any more monsters, if no then they lose*/
 function fainted(faintedMonster){
+    depopulateMoveButtons()
     console.log(faintedMonster)
     PrintOutput(faintedMonster.controller + "s " + faintedMonster.name + " has fainted", false)
     if(faintedMonster.controller == "player")
@@ -528,7 +544,7 @@ function fainted(faintedMonster){
                 anyOneLeftAlive = false
             }
         }
-
+        console.log("ahoy")
         if(anyOneLeftAlive == false)
         {
             winnerBanner.innerHTML = "YOU LOSE"
@@ -541,5 +557,5 @@ function fainted(faintedMonster){
         enemyMonsterPlaceholder.style.backgroundImage = "url()"
         UpdateHealth()
     }
-
+    PopulateMoveButtons();
 }
